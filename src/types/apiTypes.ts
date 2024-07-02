@@ -11,9 +11,17 @@ export type ProductType = {
   shipping: { free_shipping: boolean },
 };
 
+export type ProductWithQuantityType = ProductType &
+{ quantity: number, available_quantity: number };
+
 export type ProviderValues = {
-  isLoading: boolean;
-  // fetchApi: (url: string) => void;
+  cart: ProductWithQuantityType[],
+  cartSize: number,
+  handleAddToCart: (product: ProductWithQuantityType) => void,
+  removeItem: (id: string) => void,
+  incrementItemQuantity: (id: string) => void,
+  decrementItemQuantity: (id: string) => void,
+  clearCart: () => void,
 };
 
 export type ProviderProps = {
