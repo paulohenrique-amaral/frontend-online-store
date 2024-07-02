@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import Context from '../../context/Context';
 import { ProductWithQuantityType, FormDataType } from '../../types/apiTypes';
 
 type CartProps = {
@@ -15,10 +16,12 @@ const initialFormData = {
   endereco: '',
 };
 
-function Checkout({ cart, clearCart }: CartProps) {
+function Checkout() {
   const [formData, setFormdata] = useState<FormDataType>(initialFormData);
   const [error, setError] = useState('');
   const [selectedPayment, setSelectedPayment] = useState('');
+
+  const { cart, clearCart } = useContext(Context);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -179,13 +182,12 @@ function Checkout({ cart, clearCart }: CartProps) {
           </label>
         </div>
         <button
-          data-testid="checkout-btn"
           type="submit"
         >
           Comprar
         </button>
       </form>
-      {error && <p data-testid="error-msg">{ error }</p>}
+      {error && <p>{ error }</p>}
     </div>
   );
 }
