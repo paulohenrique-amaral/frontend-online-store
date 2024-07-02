@@ -10,3 +10,12 @@ export type ProductType = {
   price: number,
   shipping: { free_shipping: boolean },
 };
+
+export type ProviderValues = {
+  isLoading: boolean;
+  // fetchApi: (url: string) => void;
+};
+
+export type ProviderProps = {
+  children: React.ReactNode;
+};

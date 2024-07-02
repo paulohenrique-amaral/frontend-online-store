@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import { ProductType } from '../../types/apiTypes';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
+import ShoppingCart from '../../components/ShoppingCart/ShoppingCart';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -33,6 +34,9 @@ function Home() {
   return (
     <div className="container">
       <h2>Home</h2>
+      <div>
+        <ShoppingCart />
+      </div>
       <form
         onSubmit={ handleSubmit }
       >
