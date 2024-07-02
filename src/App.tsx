@@ -4,11 +4,12 @@ import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
 import Details from './pages/Details/Details';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route
           path="/"
