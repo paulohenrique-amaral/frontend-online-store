@@ -27,3 +27,8 @@ export type ProviderValues = {
 export type ProviderProps = {
   children: React.ReactNode;
 };
+
+export type ProductRatingType = {
+  email: string,
+  textarea: string,
+};

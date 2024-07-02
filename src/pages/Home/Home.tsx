@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../../context/Context';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import { ProductType } from '../../types/apiTypes';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
@@ -9,6 +10,8 @@ function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [noResultsApi, setNoResultsApi] = useState('');
   const [searchApi, setSearchApi] = useState<ProductType[]>([]);
+
+  const { handleAddToCart } = useContext(Context);
 
   const msg = 'Digite algum termo de pesquisa ou escolha uma categoria.';
   const msgNoResults = 'Nenhum produto foi encontrado';
@@ -29,7 +32,7 @@ function Home() {
     setInputSearch('');
   };
 
-  console.log(searchApi);
+  // console.log(searchApi);
 
   return (
     <div className="container">
@@ -57,7 +60,7 @@ function Home() {
       <CategoriesList />
       <div>
         {searchApi.length > 0 && (
-          searchApi.map((product) => (
+          searchApi.map((product: any) => (
             <div data-testid="product" key={ product.id }>
               <Link
                 to={ `/produto/${product.id}` }
@@ -70,7 +73,7 @@ function Home() {
               <button
                 type="button"
                 data-testid="product-add-to-cart"
-                // onClick={ () => handleAddToCart(product) }
+                onClick={ () => handleAddToCart(product) }
               >
                 Adicionar ao carrinho
               </button>
