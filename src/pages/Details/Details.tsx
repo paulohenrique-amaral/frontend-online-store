@@ -98,7 +98,6 @@ function Details() {
             email
             <input
               id="product-detail-email"
-              data-testid="product-detail-email"
               name="email"
               type="text"
               value={ formRating.email }
@@ -128,7 +127,6 @@ function Details() {
             />
           </label>
           <button
-            data-testid="submit-review-btn"
             type="submit"
           >
             Avaliar

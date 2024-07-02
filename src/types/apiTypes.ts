@@ -32,3 +32,12 @@ export type ProductRatingType = {
   email: string,
   textarea: string,
 };
+
+export type FormDataType = {
+  name: string,
+  cpf: string,
+  email: string,
+  telefone: string,
+  cep: string,
+  endereco: string,
+};

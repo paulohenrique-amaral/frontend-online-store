@@ -61,10 +61,9 @@ function Home() {
       <div>
         {searchApi.length > 0 && (
           searchApi.map((product: any) => (
-            <div data-testid="product" key={ product.id }>
+            <div key={ product.id }>
               <Link
                 to={ `/produto/${product.id}` }
-                data-testid="product-detail-link"
               >
                 <img src={ product.thumbnail } alt="Produto" />
                 <p>{product.title}</p>
@@ -72,13 +71,12 @@ function Home() {
               </Link>
               <button
                 type="button"
-                data-testid="product-add-to-cart"
                 onClick={ () => handleAddToCart(product) }
               >
                 Adicionar ao carrinho
               </button>
               {product.shipping.free_shipping
-              && <span data-testid="free-shipping">Frete Grátis</span>}
+              && <span>Frete Grátis</span>}
             </div>
           ))
         )}
