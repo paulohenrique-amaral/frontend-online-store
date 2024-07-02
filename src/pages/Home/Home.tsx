@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import { ProductType } from '../../types/apiTypes';
-// import { getCategories, getProductById, getProductsFromCategoryAndQuery } from '../../services/api';
-
-// MLB5672
+import CategoriesList from '../../components/CategoriesList/CategoriesList';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -51,9 +50,32 @@ function Home() {
           <p>{noResultsApi}</p>
         )}
       </form>
-      {/* <button onClick={ () => getProductsFromCategoryAndQuery('MLB5672', null) }>
-        fetch
-      </button> */}
+      <CategoriesList />
+      <div>
+        {searchApi.length > 0 && (
+          searchApi.map((product) => (
+            <div data-testid="product" key={ product.id }>
+              <Link
+                to={ `/produto/${product.id}` }
+                data-testid="product-detail-link"
+              >
+                <img src={ product.thumbnail } alt="Produto" />
+                <p>{product.title}</p>
+                <p>{`R$ ${product.price},00`}</p>
+              </Link>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                // onClick={ () => handleAddToCart(product) }
+              >
+                Adicionar ao carrinho
+              </button>
+              {product.shipping.free_shipping
+              && <span data-testid="free-shipping">Frete Grátis</span>}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

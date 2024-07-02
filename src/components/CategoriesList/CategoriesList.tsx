@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getCategories } from '../../services/api';
 import { CategoryType } from '../../types/apiTypes';
+import Loading from '../Loading/Loading';
 
 function CategoriesList() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
@@ -15,6 +16,8 @@ function CategoriesList() {
     };
     fetchCategories();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <aside>
