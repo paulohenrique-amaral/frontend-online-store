@@ -1,10 +1,10 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
 import Details from './pages/Details/Details';
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -28,9 +28,8 @@ function App() {
           element={ <Details /> }
         />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
-    // <h2>online-store</h2>
   );
 }
 
