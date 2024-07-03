@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { styled, Grid, Typography, Container } from '@mui/material';
 import Context from '../../context/Context';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import { ProductType } from '../../types/apiTypes';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
-import ShoppingCart from '../../components/ShoppingCart/ShoppingCart';
+import SearchInput from '../../components/SearchInput/SearchInput';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -35,49 +36,57 @@ function Home() {
   // console.log(searchApi);
 
   return (
-    <div className="container">
-      <form
-        onSubmit={ handleSubmit }
-      >
-        <input
-          type="text"
-          onChange={ handleChange }
-          value={ inputSearch }
-          name="search"
-          placeholder="Digite sua busca"
-        />
-        <button>Pesquisar</button>
-
-        {inputSearch === '' && <p>{ msg }</p>}
-        {noResultsApi !== '' && (
-          <p>{noResultsApi}</p>
-        )}
-      </form>
-      <CategoriesList setSearchApi={ setSearchApi } />
-      <div>
-        {searchApi.length > 0 && (
-          searchApi.map((product: any) => (
-            <div key={ product.id }>
-              <Link
-                to={ `/produto/${product.id}` }
-              >
-                <img src={ product.thumbnail } alt="Produto" />
-                <p>{product.title}</p>
-                <p>{`R$ ${product.price},00`}</p>
-              </Link>
-              <button
-                type="button"
-                onClick={ () => handleAddToCart(product) }
-              >
-                Adicionar ao carrinho
-              </button>
-              {product.shipping.free_shipping
-              && <span>Frete Grátis</span>}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+    <Container maxWidth="lg" className="container">
+      <Grid container spacing={ 2 }>
+        <Grid
+          item
+          xs={ 12 }
+          md={ 12 }
+          sx={ { display: 'flex', justifyContent: 'center' } }
+        >
+          <form
+            onSubmit={ handleSubmit }
+          >
+            <SearchInput
+              onChange={ handleChange }
+              value={ inputSearch }
+              name="search"
+              type="text"
+            />
+            {inputSearch === '' && <p>{ msg }</p>}
+            {noResultsApi !== '' && (
+              <p>{noResultsApi}</p>
+            )}
+          </form>
+        </Grid>
+        <Grid item xs={ 4 } md={ 4 }>
+          <CategoriesList setSearchApi={ setSearchApi } />
+        </Grid>
+        <Grid item xs={ 8 } md={ 8 }>
+          {searchApi.length > 0 && (
+            searchApi.map((product: any) => (
+              <div key={ product.id }>
+                <Link
+                  to={ `/produto/${product.id}` }
+                >
+                  <img src={ product.thumbnail } alt="Produto" />
+                  <p>{product.title}</p>
+                  <p>{`R$ ${product.price},00`}</p>
+                </Link>
+                <button
+                  type="button"
+                  onClick={ () => handleAddToCart(product) }
+                >
+                  Adicionar ao carrinho
+                </button>
+                {product.shipping.free_shipping
+                && <span>Frete Grátis</span>}
+              </div>
+            ))
+          )}
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
