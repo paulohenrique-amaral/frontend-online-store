@@ -10,13 +10,16 @@ const ligthTheme = createTheme({
       contrastText: '#fffffe',
     },
     secondary: {
-      main: '#e45858',
+      main: '#FFE600',
       // dark: '#ab003c',
       // light: '#f73378',
     },
+    success: {
+      main: '#ff6e6c',
+    },
     background: {
-      default: '#fffffe',
-      paper: '#d1d1e9',
+      default: '#EBEBEB',
+      paper: '#FFFFFF',
     },
     text: {
       primary: '#2b2c34',
