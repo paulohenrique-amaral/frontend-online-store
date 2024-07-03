@@ -57,7 +57,7 @@ function Home() {
           <p>{noResultsApi}</p>
         )}
       </form>
-      <CategoriesList />
+      <CategoriesList setSearchApi={ setSearchApi } />
       <div>
         {searchApi.length > 0 && (
           searchApi.map((product: any) => (

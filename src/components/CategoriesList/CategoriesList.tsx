@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getCategories } from '../../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../../services/api';
 import { CategoryType } from '../../types/apiTypes';
 import Loading from '../Loading/Loading';
 
-function CategoriesList() {
+type CategoriesListProps = {
+  setSearchApi: (value: any) => void;
+};
+
+function CategoriesList({ setSearchApi }: CategoriesListProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const searchFromCategories = async (id: string) => {
+    const dataFetchCategory = await getProductsFromCategoryAndQuery(id, null);
+    setSearchApi(dataFetchCategory);
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,7 +40,7 @@ function CategoriesList() {
                 name="category"
                 value={ category.name }
                 id={ category.name }
-                // onClick={ () => searchFromCategories(`${category.id}`) }
+                onClick={ () => searchFromCategories(`${category.id}`) }
               />
               {category.name}
             </label>
