@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { Typography } from '@mui/material';
 import { getCategories, getProductsFromCategoryAndQuery } from '../../services/api';
 import { CategoryType } from '../../types/apiTypes';
 import Loading from '../Loading/Loading';
@@ -29,25 +35,26 @@ function CategoriesList({ setSearchApi }: CategoriesListProps) {
   if (loading) return <Loading />;
 
   return (
-    <aside>
-      <h2>CATEGORIAS</h2>
-      <ul>
-        {categories?.map((category) => (
-          <li key={ category.id }>
-            <label data-testid="category" htmlFor={ category.name }>
-              <input
-                type="radio"
-                name="category"
-                value={ category.name }
-                id={ category.name }
-                onClick={ () => searchFromCategories(`${category.id}`) }
-              />
-              {category.name}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </aside>
+    <Box sx={ { width: '100%', maxWidth: 360, bgcolor: 'background.paper' } }>
+      <Box sx={ { padding: '0.9rem' } }>
+        <Typography variant="h6">
+          CATEGORIAS
+        </Typography>
+      </Box>
+      <aside aria-label="main mailbox folders">
+        <List>
+          {categories?.map((category) => (
+            <div key={ category.id }>
+              <ListItem disablePadding>
+                <ListItemButton onClick={ () => searchFromCategories(`${category.id}`) }>
+                  <ListItemText primary={ category.name } />
+                </ListItemButton>
+              </ListItem>
+            </div>
+          ))}
+        </List>
+      </aside>
+    </Box>
   );
 }
 

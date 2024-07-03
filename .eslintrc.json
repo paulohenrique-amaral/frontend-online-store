@@ -1,6 +1,7 @@
 {
   "extends": "@trybe/eslint-config-frontend/typescript",
   "rules": {
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-max-depth": "off"
   }
 }
