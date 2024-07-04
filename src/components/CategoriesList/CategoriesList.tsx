@@ -1,34 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
-import { getCategories, getProductsFromCategoryAndQuery } from '../../services/api';
-import { CategoryType } from '../../types/apiTypes';
+import Context from '../../context/Context';
 import Loading from '../Loading/Loading';
 
-type CategoriesListProps = {
-  setSearchApi: (value: any) => void;
-};
-
-function CategoriesList({ setSearchApi }: CategoriesListProps) {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const searchFromCategories = async (id: string) => {
-    const dataFetchCategory = await getProductsFromCategoryAndQuery(id, null);
-    setSearchApi(dataFetchCategory);
-  };
+function CategoriesList() {
+  const {
+    categories,
+    loading,
+    fetchCategories,
+    searchFromCategories,
+  } = useContext(Context);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      const resultCategories = await getCategories();
-      setCategories(resultCategories);
-      setLoading(false);
-    };
     fetchCategories();
   }, []);
 

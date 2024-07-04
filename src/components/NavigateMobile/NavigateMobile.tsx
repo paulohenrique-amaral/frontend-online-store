@@ -53,6 +53,11 @@ const Icon = styled('button')(({ theme }) => ({
 
 function NavigateMobile() {
   const [activeIcon, setActiveIcon] = useState('');
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
 
   const change = (iconName: any) => {
     setActiveIcon(iconName);
@@ -109,7 +114,7 @@ function NavigateMobile() {
               className={ `icon ${activeIcon === 'Itens-outline' ? 'active' : ''}` }
               onClick={ () => {
                 change('Itens-outline');
-                console.log('Clicou em Itens');
+                toggleDrawer(true);
               } }
             >
               <ListIcon />

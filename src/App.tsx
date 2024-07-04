@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { styled, Grid, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { useTheme, useMediaQuery } from '@mui/material';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';

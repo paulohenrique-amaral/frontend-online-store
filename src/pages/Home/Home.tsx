@@ -1,18 +1,18 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { styled, Grid, Typography, Container } from '@mui/material';
+import { styled, Grid, Container, useTheme, useMediaQuery } from '@mui/material';
 import Context from '../../context/Context';
-import { getProductsFromCategoryAndQuery } from '../../services/api';
-import { ProductType } from '../../types/apiTypes';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [noResultsApi, setNoResultsApi] = useState('');
-  const [searchApi, setSearchApi] = useState<ProductType[]>([]);
 
-  const { handleAddToCart } = useContext(Context);
+  const { handleAddToCart, searchApi, searchFromInput } = useContext(Context);
+
+  const theme = useTheme();
+  const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 
   const msg = 'Digite algum termo de pesquisa ou escolha uma categoria.';
   const msgNoResults = 'Nenhum produto foi encontrado';
@@ -24,11 +24,9 @@ function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const fetchInputSearch = await getProductsFromCategoryAndQuery(null, inputSearch);
-    if (fetchInputSearch.length === 0) {
+    await searchFromInput(inputSearch);
+    if (searchApi.length === 0) {
       setNoResultsApi(msgNoResults);
-    } else {
-      setSearchApi(fetchInputSearch);
     }
     setInputSearch('');
   };
@@ -59,9 +57,11 @@ function Home() {
             )}
           </form>
         </Grid>
-        <Grid item xs={ 4 } md={ 4 }>
-          <CategoriesList setSearchApi={ setSearchApi } />
-        </Grid>
+        { !matchesXS && (
+          <Grid item xs={ 4 } md={ 4 }>
+            <CategoriesList />
+          </Grid>
+        )}
         <Grid item xs={ 8 } md={ 8 }>
           {searchApi.length > 0 && (
             searchApi.map((product: any) => (
