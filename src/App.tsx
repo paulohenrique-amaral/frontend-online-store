@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { styled, Grid, Typography, useTheme, useMediaQuery } from '@mui/material';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
@@ -8,6 +9,8 @@ import Footer from './components/Footer/Footer';
 import NavigateMobile from './components/NavigateMobile/NavigateMobile';
 
 function App() {
+  const theme = useTheme();
+  const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
       <Header />
@@ -29,8 +32,9 @@ function App() {
           element={ <Details /> }
         />
       </Routes>
-      <NavigateMobile />
-      {/* <Footer /> */}
+      {matchesXS ? <NavigateMobile /> : <Footer />}
+      {/* <NavigateMobile />
+      <Footer /> */}
     </>
   );
 }
