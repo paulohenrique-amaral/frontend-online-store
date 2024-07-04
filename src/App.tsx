@@ -5,6 +5,7 @@ import Checkout from './pages/Checkout/Checkout';
 import Details from './pages/Details/Details';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import NavigateMobile from './components/NavigateMobile/NavigateMobile';
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
           element={ <Details /> }
         />
       </Routes>
-      <Footer />
+      <NavigateMobile />
+      {/* <Footer /> */}
     </>
   );
 }
