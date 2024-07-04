@@ -1,106 +1,124 @@
 import * as React from 'react';
-import { StyledEngineProvider, CssVarsProvider } from '@mui/joy/styles';
-import Box from '@mui/joy/Box';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab, { tabClasses } from '@mui/joy/Tab';
+import { useState } from 'react';
+import { styled, Grid, Typography } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Search from '@mui/icons-material/Search';
-import Person from '@mui/icons-material/Person';
+import ListIcon from '@mui/icons-material/List';
+
+const ContainerStyled = styled('header')(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.text.secondary,
+  width: '100%',
+  // height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: 0,
+  position: 'fixed',
+  bottom: 0,
+  zIndex: 1000,
+}));
+
+const BottomBar = styled('div')(({ theme }) => ({
+  backgroundColor: '#eee',
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  textAlign: 'center',
+  marginTop: '.7em',
+  width: '90%',
+  borderRadius: '20px 20px 0 0',
+}));
+
+const Icon = styled('button')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  fontSize: '1em',
+  padding: '.3em',
+  margin: '.3em',
+  marginTop: 0,
+  transition: '.2s ease-in-out',
+  borderRadius: '100%',
+  border: '7px solid #eee',
+  background: 'linear-gradient(135deg, #eee, #ddd)',
+  '&.active': {
+    transform: 'scale(1) translateY(-1em)',
+    background: 'linear-gradient(135deg, #23f,#6589ff)',
+    border: '5px solid #dcdcdc',
+    color: 'white',
+  },
+}));
 
 function NavigateMobile() {
-  const [index, setIndex] = React.useState(0);
-  const colors = ['primary', 'danger', 'success', 'warning'] as const;
+  const [activeIcon, setActiveIcon] = useState('');
+
+  const change = (iconName: any) => {
+    setActiveIcon(iconName);
+  };
+
   return (
-    <StyledEngineProvider injectFirst>
-      <CssVarsProvider>
-        <Box
-          sx={ {
-            flexGrow: 1,
-            m: -3,
-            p: 4,
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-            bgcolor: `${colors[index]}.500`,
-          } }
-        >
-          <Tabs
-            size="lg"
-            aria-label="Bottom Navigation"
-            value={ index }
-            onChange={ (event, value) => setIndex(value as number) }
-            sx={ (theme) => ({
-              p: 1,
-              borderRadius: 16,
-              maxWidth: 400,
-              mx: 'auto',
-              boxShadow: theme.shadow.sm,
-              '--joy-shadowChannel': theme.vars.palette[colors[index]].darkChannel,
-              [`& .${tabClasses.root}`]: {
-                py: 1,
-                flex: 1,
-                transition: '0.3s',
-                fontWeight: 'md',
-                fontSize: 'md',
-                [`&:not(.${tabClasses.selected}):not(:hover)`]: {
-                  opacity: 0.7,
-                },
-              },
-            }) }
+    <ContainerStyled>
+      <BottomBar>
+        <Grid container>
+          <Grid
+            item
+            xs={ 4 }
+            md={ 4 }
+            sx={ { display: 'flex', justifyContent: 'center' } }
           >
-            <TabList
-              variant="plain"
-              size="sm"
-              disableUnderline
-              sx={ { borderRadius: 'lg', p: 0 } }
+            <Icon
+              name="home-outline"
+              className={ `icon ${activeIcon === 'home-outline' ? 'active' : ''}` }
+              onClick={ () => {
+                change('home-outline');
+                console.log('Clicou em Home');
+              } }
             >
-              <Tab
-                disableIndicator
-                orientation="vertical"
-                { ...(index === 0 && { color: colors[0] }) }
-              >
-                <ListItemDecorator>
-                  <HomeRoundedIcon />
-                </ListItemDecorator>
-                Home
-              </Tab>
-              <Tab
-                disableIndicator
-                orientation="vertical"
-                { ...(index === 1 && { color: colors[1] }) }
-              >
-                <ListItemDecorator>
-                  <FavoriteBorder />
-                </ListItemDecorator>
-                Likes
-              </Tab>
-              <Tab
-                disableIndicator
-                orientation="vertical"
-                { ...(index === 2 && { color: colors[2] }) }
-              >
-                <ListItemDecorator>
-                  <Search />
-                </ListItemDecorator>
-                Search
-              </Tab>
-              <Tab
-                disableIndicator
-                orientation="vertical"
-                { ...(index === 3 && { color: colors[3] }) }
-              >
-                <ListItemDecorator>
-                  <Person />
-                </ListItemDecorator>
-                Profile
-              </Tab>
-            </TabList>
-          </Tabs>
-        </Box>
-      </CssVarsProvider>
-    </StyledEngineProvider>
+              <HomeRoundedIcon />
+              <Typography variant="caption">Home</Typography>
+            </Icon>
+          </Grid>
+          <Grid
+            item
+            xs={ 4 }
+            md={ 4 }
+            sx={ { display: 'flex', justifyContent: 'center' } }
+          >
+            <Icon
+              name="search-outline"
+              className={ `icon ${activeIcon === 'search-outline' ? 'active' : ''}` }
+              onClick={ () => {
+                change('search-outline');
+                console.log('Clicou em Busca');
+              } }
+            >
+              <Search />
+              <Typography variant="caption">Busca</Typography>
+            </Icon>
+          </Grid>
+          <Grid
+            item
+            xs={ 4 }
+            md={ 4 }
+            sx={ { display: 'flex', justifyContent: 'center' } }
+          >
+            <Icon
+              name="Itens-outline"
+              className={ `icon ${activeIcon === 'Itens-outline' ? 'active' : ''}` }
+              onClick={ () => {
+                change('Itens-outline');
+                console.log('Clicou em Itens');
+              } }
+            >
+              <ListIcon />
+              <Typography variant="caption">Itens</Typography>
+            </Icon>
+          </Grid>
+        </Grid>
+      </BottomBar>
+    </ContainerStyled>
   );
 }
 
