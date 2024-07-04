@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import { ProviderProps, ProviderValues } from '../types/apiTypes';
 import Context from './Context';
 import useCart from '../hook/useCart';
 import useFetch from '../hook/useFetch';
 
 function Provider({ children }: ProviderProps) {
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
   const {
     cart,
     cartSize,
@@ -37,6 +44,8 @@ function Provider({ children }: ProviderProps) {
     fetchCategories,
     searchFromCategories,
     searchFromInput,
+    open,
+    toggleDrawer,
   };
 
   return (

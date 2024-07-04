@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { styled, Grid, Container, useTheme, useMediaQuery } from '@mui/material';
+import { Grid, Container, useTheme, useMediaQuery } from '@mui/material';
 import Context from '../../context/Context';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';

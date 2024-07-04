@@ -14,6 +14,7 @@ function CategoriesList() {
     loading,
     fetchCategories,
     searchFromCategories,
+    toggleDrawer,
   } = useContext(Context);
 
   useEffect(() => {
@@ -34,7 +35,12 @@ function CategoriesList() {
           {categories?.map((category) => (
             <div key={ category.id }>
               <ListItem disablePadding>
-                <ListItemButton onClick={ () => searchFromCategories(`${category.id}`) }>
+                <ListItemButton
+                  onClick={ async () => {
+                    await searchFromCategories(`${category.id}`);
+                    toggleDrawer(false);
+                  } }
+                >
                   <ListItemText primary={ category.name } />
                 </ListItemButton>
               </ListItem>

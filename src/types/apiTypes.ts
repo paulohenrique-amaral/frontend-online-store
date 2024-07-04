@@ -28,6 +28,8 @@ export type ProviderValues = {
   fetchCategories: () => void,
   searchFromCategories: (id: string) => void,
   searchFromInput: (inputSearch: string) => void,
+  open: boolean,
+  toggleDrawer: (newOpen: boolean) => void,
 };
 
 export type ProviderProps = {

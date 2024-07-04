@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { styled, Grid, Typography } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import Search from '@mui/icons-material/Search';
 import ListIcon from '@mui/icons-material/List';
+import Context from '../../context/Context';
+import CategoriesListDrawer from '../CategoriesListDrawer/CategoriesListDrawer';
 
 const ContainerStyled = styled('header')(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -53,11 +55,12 @@ const Icon = styled('button')(({ theme }) => ({
 
 function NavigateMobile() {
   const [activeIcon, setActiveIcon] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const { toggleDrawer } = useContext(Context);
+  // const [open, setOpen] = React.useState(false);
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
+  // const toggleDrawer = (newOpen: boolean) => {
+  //   setOpen(newOpen);
+  // };
 
   const change = (iconName: any) => {
     setActiveIcon(iconName);
@@ -123,6 +126,7 @@ function NavigateMobile() {
           </Grid>
         </Grid>
       </BottomBar>
+      <CategoriesListDrawer />
     </ContainerStyled>
   );
 }
