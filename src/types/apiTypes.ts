@@ -22,6 +22,12 @@ export type ProviderValues = {
   incrementItemQuantity: (id: string) => void,
   decrementItemQuantity: (id: string) => void,
   clearCart: () => void,
+  searchApi: ProductType[],
+  categories: CategoryType[],
+  loading: boolean,
+  fetchCategories: () => void,
+  searchFromCategories: (id: string) => void,
+  searchFromInput: (inputSearch: string) => void,
 };
 
 export type ProviderProps = {
