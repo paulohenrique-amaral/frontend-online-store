@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { styled, Typography, Paper, Box, keyframes } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { ProductWithQuantityType } from '../../types/apiTypes';
 import Context from '../../context/Context';
 
@@ -18,23 +18,19 @@ const rotate = keyframes`
 `;
 
 const ContainerStyled = styled(Box)(({ theme }) => ({
-  // backgroundColor: 'blue',
   color: theme.palette.primary.contrastText,
-  // width: '100%',
-  // height: '100%',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
 }));
 
 const Item = styled(Paper)(({ theme }) => ({
+  position: 'relative',
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   color: theme.palette.text.primary,
-  width: '100%',
-  // width: '240px',
-  // height: '340px',
+  width: '90%',
   lineHeight: '60px',
   margin: '0.5rem',
   padding: '0.5rem',
@@ -47,10 +43,11 @@ const Item = styled(Paper)(({ theme }) => ({
 const ContentStyled = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  alignItems: 'start',
+  justifyContent: 'space-around',
   padding: '0.5rem',
   margin: '0 0.5rem',
-  width: '100%',
+  width: 'calc(100% - 220px)',
 }));
 
 type CardProductProps = {
@@ -64,7 +61,19 @@ type CardProductProps = {
 
 function CardProduct({ id, product, image, name, price, freight }: CardProductProps) {
   const [animate, setAnimate] = useState(false);
-  const { handleAddToCart } = useContext(Context);
+  const [showCartDetail, setShowCartDetail] = useState(false);
+  const {
+    handleAddToCart,
+    removeItem,
+    decrementItemQuantity,
+    incrementItemQuantity,
+  } = useContext(Context);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const showBtn = location.pathname === '/carrinho';
+
   return (
     <ContainerStyled>
       <Item elevation={ 5 }>
@@ -116,30 +125,73 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
               {price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </Typography>
           </Box>
-          <Box>
-            <Button
-              variant="contained"
-              startIcon={ <AddShoppingCartIcon /> }
-              onClick={ () => {
-                handleAddToCart(product);
-                setAnimate(true);
-                setTimeout(() => setAnimate(false), 700);
-              } }
-              sx={ {
-                '& svg': {
-                  animation: animate ? `${rotate} .5s linear forwards` : 'none',
-                },
-              } }
-            >
-              Adicionar ao carrinho
-            </Button>
-          </Box>
+          {!showBtn && (
+            <Box>
+              <Button
+                variant="contained"
+                startIcon={ <AddShoppingCartIcon /> }
+                onClick={ () => {
+                  handleAddToCart(product);
+                  setAnimate(true);
+                  setTimeout(() => setAnimate(false), 700);
+                } }
+                sx={ {
+                  '& svg': {
+                    animation: animate ? `${rotate} .5s linear forwards` : 'none',
+                  },
+                } }
+              >
+                Adicionar ao carrinho
+              </Button>
+            </Box>
+          )}
           <Box>
             <Typography variant="h6" color="#00A650">
               {freight ? 'Frete Grátis' : ''}
             </Typography>
           </Box>
         </ContentStyled>
+        { showBtn && (
+          <Box
+            sx={ {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              gap: '0.5rem',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              margin: '0.7rem',
+              '& button': {
+                minWidth: '0px',
+              },
+            } }
+          >
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={ () => {
+                if (product.quantity <= 1) {
+                  removeItem(product.id);
+                } else {
+                  decrementItemQuantity(product.id);
+                }
+              } }
+            >
+              -
+            </Button>
+            <Typography>
+              {product.quantity}
+            </Typography>
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={ () => incrementItemQuantity(product.id) }
+            >
+              +
+            </Button>
+          </Box>
+        )}
       </Item>
     </ContainerStyled>
   );
