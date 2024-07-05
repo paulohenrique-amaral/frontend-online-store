@@ -7,7 +7,6 @@ import Details from './pages/Details/Details';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import NavigateMobile from './components/NavigateMobile/NavigateMobile';
-import CardProduct from './components/CardProduct/CardProduct';
 
 function App() {
   const theme = useTheme();
@@ -34,7 +33,6 @@ function App() {
         />
       </Routes>
       {matchesXS ? <NavigateMobile /> : <Footer />}
-      {/* <CardProduct /> */}
     </>
   );
 }

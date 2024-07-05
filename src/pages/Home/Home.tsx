@@ -1,16 +1,17 @@
 import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { Grid, Container, useTheme, useMediaQuery } from '@mui/material';
 import Context from '../../context/Context';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import CardProduct from '../../components/CardProduct/CardProduct';
+import AlertSnackBar from '../../components/AlertSnackBar/AlertSnackBar';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
-  const [noResultsApi, setNoResultsApi] = useState('');
+  const [msgResult, setMsgResult] = useState('');
+  const [openSnackBar, setOpenSnackBar] = useState(false);
 
-  const { handleAddToCart, searchApi, searchFromInput } = useContext(Context);
+  const { searchApi, searchFromInput } = useContext(Context);
 
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
@@ -25,9 +26,15 @@ function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (inputSearch === '') {
+      setMsgResult(msg);
+      setOpenSnackBar(true);
+      return;
+    }
     await searchFromInput(inputSearch);
     if (searchApi.length === 0) {
-      setNoResultsApi(msgNoResults);
+      setMsgResult(msgNoResults);
+      setOpenSnackBar(true);
     }
     setInputSearch('');
   };
@@ -50,10 +57,11 @@ function Home() {
               name="search"
               type="text"
             />
-            {inputSearch === '' && <p>{ msg }</p>}
-            {noResultsApi !== '' && (
-              <p>{noResultsApi}</p>
-            )}
+            <AlertSnackBar
+              open={ openSnackBar }
+              setOpen={ setOpenSnackBar }
+              message={ msgResult }
+            />
           </form>
         </Grid>
         { !matchesXS && (
