@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useContext } from 'react';
 import { styled, Grid, Typography } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -56,11 +55,6 @@ const Icon = styled('button')(({ theme }) => ({
 function NavigateMobile() {
   const [activeIcon, setActiveIcon] = useState('');
   const { toggleDrawer } = useContext(Context);
-  // const [open, setOpen] = React.useState(false);
-
-  // const toggleDrawer = (newOpen: boolean) => {
-  //   setOpen(newOpen);
-  // };
 
   const change = (iconName: any) => {
     setActiveIcon(iconName);

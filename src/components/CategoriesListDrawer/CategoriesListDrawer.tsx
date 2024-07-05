@@ -4,11 +4,6 @@ import Drawer from '@mui/material/Drawer';
 import Context from '../../context/Context';
 import CategoriesList from '../CategoriesList/CategoriesList';
 
-// type CategoriesListDrawerProps = {
-//   open: boolean;
-//   toggleDrawer: (newOpen: boolean) => void;
-// };
-
 function CategoriesListDrawer() {
   const { open, toggleDrawer } = useContext(Context);
   return (

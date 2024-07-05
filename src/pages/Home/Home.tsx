@@ -4,6 +4,7 @@ import { Grid, Container, useTheme, useMediaQuery } from '@mui/material';
 import Context from '../../context/Context';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';
+import CardProduct from '../../components/CardProduct/CardProduct';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -31,8 +32,6 @@ function Home() {
     setInputSearch('');
   };
 
-  // console.log(searchApi);
-
   return (
     <Container maxWidth="lg" className="container">
       <Grid container spacing={ 2 }>
@@ -58,29 +57,22 @@ function Home() {
           </form>
         </Grid>
         { !matchesXS && (
-          <Grid item xs={ 4 } md={ 4 }>
+          <Grid item sm={ 4 } md={ 3 }>
             <CategoriesList />
           </Grid>
         )}
-        <Grid item xs={ 8 } md={ 8 }>
+        <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
           {searchApi.length > 0 && (
             searchApi.map((product: any) => (
               <div key={ product.id }>
-                <Link
-                  to={ `/produto/${product.id}` }
-                >
-                  <img src={ product.thumbnail } alt="Produto" />
-                  <p>{product.title}</p>
-                  <p>{`R$ ${product.price},00`}</p>
-                </Link>
-                <button
-                  type="button"
-                  onClick={ () => handleAddToCart(product) }
-                >
-                  Adicionar ao carrinho
-                </button>
-                {product.shipping.free_shipping
-                && <span>Frete Grátis</span>}
+                <CardProduct
+                  id={ product.id }
+                  product={ product }
+                  image={ product.thumbnail }
+                  name={ product.title }
+                  price={ product.price }
+                  freight={ product.shipping.free_shipping }
+                />
               </div>
             ))
           )}
