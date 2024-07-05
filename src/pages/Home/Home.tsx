@@ -10,9 +10,7 @@ function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [msgResult, setMsgResult] = useState('');
   const [openSnackBar, setOpenSnackBar] = useState(false);
-
   const { searchApi, searchFromInput } = useContext(Context);
-
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 

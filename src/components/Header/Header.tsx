@@ -16,7 +16,7 @@ const HeaderStyled = styled('header')(({ theme }) => ({
 
 function Header() {
   return (
-    <HeaderStyled>
+    <HeaderStyled id="home">
       <Grid container>
         <Grid item xs={ 6 } md={ 6 }>
           <Typography variant="h3">

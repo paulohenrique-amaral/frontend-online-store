@@ -18,6 +18,7 @@ function SearchInput({ onChange, value, name, type }: SearchInputProps) {
       sx={ { p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 } }
     >
       <InputBase
+        id="search"
         sx={ { ml: 1, flex: 1 } }
         placeholder="Digite sua busca"
         onChange={ onChange }

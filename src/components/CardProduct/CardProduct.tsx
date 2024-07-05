@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { styled, Grid, Typography, Paper, Box, keyframes } from '@mui/material';
+import { styled, Typography, Paper, Box, keyframes } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Rocket } from '@mui/icons-material';
 import { ProductWithQuantityType } from '../../types/apiTypes';
 import Context from '../../context/Context';
 
