@@ -17,6 +17,23 @@ const rotate = keyframes`
   }
 `;
 
+const scaleOutVertical = keyframes`
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+    opacity: 1;
+  }
+`;
+
 const ContainerStyled = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   display: 'flex',
@@ -24,7 +41,13 @@ const ContainerStyled = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-const Item = styled(Paper)(({ theme }) => ({
+type ItemProps = {
+  remove: boolean;
+};
+
+const Item = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== 'remove',
+})<ItemProps>(({ theme, remove }) => ({
   position: 'relative',
   display: 'flex',
   justifyContent: 'flex-start',
@@ -35,6 +58,7 @@ const Item = styled(Paper)(({ theme }) => ({
   margin: '0.5rem',
   padding: '0.5rem',
   transition: '0.5s',
+  animation: remove ? `${scaleOutVertical} 0.2s linear forwards` : 'none',
   '&:hover': {
     boxShadow: '0 0 10px 0 #000',
   },
@@ -61,7 +85,7 @@ type CardProductProps = {
 
 function CardProduct({ id, product, image, name, price, freight }: CardProductProps) {
   const [animate, setAnimate] = useState(false);
-  const [showCartDetail, setShowCartDetail] = useState(false);
+  const [removeCard, setRemoveCard] = useState(false);
   const {
     handleAddToCart,
     removeItem,
@@ -76,7 +100,7 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
 
   return (
     <ContainerStyled>
-      <Item elevation={ 5 }>
+      <Item elevation={ 5 } remove={ removeCard }>
         <Box
           sx={ {
             display: 'flex',
@@ -172,7 +196,10 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
               size="small"
               onClick={ () => {
                 if (product.quantity <= 1) {
-                  removeItem(product.id);
+                  setRemoveCard(true);
+                  setTimeout(() => {
+                    removeItem(product.id);
+                  }, 200);
                 } else {
                   decrementItemQuantity(product.id);
                 }
