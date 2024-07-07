@@ -1,7 +1,10 @@
 import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Container, Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 import Context from '../../context/Context';
 import { ProductWithQuantityType, FormDataType } from '../../types/apiTypes';
+import CardCheckout from '../../components/CardCheckout/CardCheckout';
 
 type CartProps = {
   cart: ProductWithQuantityType[],
@@ -56,7 +59,7 @@ function Checkout() {
 
   return (
     <Container maxWidth="lg">
-      <h2>Resumo Chekout</h2>
+      <h2>Resumo Checkout</h2>
       <Grid container>
         <Grid item xs={ 12 } md={ 12 }>
           <Box
@@ -67,19 +70,18 @@ function Checkout() {
           >
             { cart.map((product) => (
               <div key={ product.id }>
-                <img
-                  src={ product.thumbnail }
-                  width="100px"
-                  alt={ `Imagem de ${product.title}` }
+                <CardCheckout
+                  id={ product.id }
+                  product={ product }
+                  image={ product.thumbnail }
+                  name={ product.title }
+                  price={ product.price }
                 />
-                <p>{ product.title }</p>
-                <p>{ `R$ ${product.price}` }</p>
-                <h3>TOTAL</h3>
               </div>
             ))}
           </Box>
         </Grid>
-        <Grid item xs={ 12 } md={ 12 }>
+        {/* <Grid item xs={ 12 } md={ 12 }>
           <Typography variant="h5">
             Informações do Comprador
           </Typography>
@@ -202,8 +204,33 @@ function Checkout() {
             </button>
           </form>
           {error && <p>{ error }</p>}
-        </Grid>
+        </Grid> */}
       </Grid>
+      <Box
+        sx={ {
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: '1em',
+          marginBottom: '6em',
+          padding: '1em',
+        } }
+      >
+        <Link
+          to="/carrinho"
+        >
+          <Button variant="outlined">
+            Editar carrinho
+          </Button>
+        </Link>
+        <Link
+          to="/checkout"
+        >
+          <Button variant="outlined">
+            Finalizar Compra
+          </Button>
+        </Link>
+      </Box>
     </Container>
   );
 }

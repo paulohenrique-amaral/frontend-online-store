@@ -74,7 +74,7 @@ function Cart() {
           to="/checkout"
         >
           <Button variant="outlined">
-            Finalizar Compra
+            Checkout
           </Button>
         </Link>
       </Box>
