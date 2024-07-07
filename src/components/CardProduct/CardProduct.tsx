@@ -37,7 +37,7 @@ const scaleOutVertical = keyframes`
 const ContainerStyled = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   display: 'flex',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
 }));
 
