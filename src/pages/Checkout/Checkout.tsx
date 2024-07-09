@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Context from '../../context/Context';
 import { ProductWithQuantityType, FormDataType } from '../../types/apiTypes';
 import CardCheckout from '../../components/CardCheckout/CardCheckout';
+import ModalFormCheckout from '../../components/ModalFormCheckout/ModalFormCheckout';
 
 type CartProps = {
   cart: ProductWithQuantityType[],
@@ -22,40 +23,41 @@ const initialFormData = {
 
 function Checkout() {
   const [formData, setFormdata] = useState<FormDataType>(initialFormData);
+  const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
   const [selectedPayment, setSelectedPayment] = useState('');
 
   const { cart, clearCart } = useContext(Context);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
 
-    if (!formData.name
-      || formData.cpf === ''
-      || formData.email === ''
-      || formData.telefone === ''
-      || formData.cep === ''
-      || formData.endereco === '') {
-      setError('Campos inválidos');
-      return;
-    }
-    if (!selectedPayment) {
-      setError('Campos inválidos');
-      return;
-    }
-    setError('');
-    window.location.href = '/';
-    clearCart();
-  };
+  //   if (!formData.name
+  //     || formData.cpf === ''
+  //     || formData.email === ''
+  //     || formData.telefone === ''
+  //     || formData.cep === ''
+  //     || formData.endereco === '') {
+  //     setError('Campos inválidos');
+  //     return;
+  //   }
+  //   if (!selectedPayment) {
+  //     setError('Campos inválidos');
+  //     return;
+  //   }
+  //   setError('');
+  //   window.location.href = '/';
+  //   clearCart();
+  // };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormdata({
-      ...formData,
-      [name]: value,
-    });
-    setError('');
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setFormdata({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  //   setError('');
+  // };
 
   return (
     <Container maxWidth="lg">
@@ -81,6 +83,7 @@ function Checkout() {
             ))}
           </Box>
         </Grid>
+        <ModalFormCheckout open={ open } setOpen={ setOpen } />
         {/* <Grid item xs={ 12 } md={ 12 }>
           <Typography variant="h5">
             Informações do Comprador
@@ -223,13 +226,16 @@ function Checkout() {
             Editar carrinho
           </Button>
         </Link>
-        <Link
+        {/* <Link
           to="/checkout"
+        > */}
+        <Button
+          variant="outlined"
+          onClick={ () => setOpen(true) }
         >
-          <Button variant="outlined">
-            Finalizar Compra
-          </Button>
-        </Link>
+          Finalizar Compra
+        </Button>
+        {/* </Link> */}
       </Box>
     </Container>
   );
