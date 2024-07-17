@@ -30,6 +30,10 @@ export type ProviderValues = {
   searchFromInput: (inputSearch: string) => void,
   open: boolean,
   toggleDrawer: (newOpen: boolean) => void,
+  personData: ClientDataType,
+  setPersonData: (data: ClientDataType) => void,
+  etapaAtual: number,
+  setEtapaAtual: (etapa: number) => void,
 };
 
 export type ProviderProps = {
@@ -41,11 +45,37 @@ export type ProductRatingType = {
   textarea: string,
 };
 
-export type FormDataType = {
+export type PersonDataType = {
   name: string,
   cpf: string,
+  date: string
   email: string,
   telefone: string,
-  cep: string,
-  endereco: string,
+};
+
+export type AdressDataType = {
+  zipCode: string,
+  street: string,
+  number: string,
+  district: string,
+  complement: string,
+  city: string,
+  state: string,
+};
+
+export type PaymentDataType = {
+  cardNumber: string,
+  expiryDate: string,
+  cvc: string,
+  cardHolderName: string,
+};
+
+export type ClientDataType = {
+  person: PersonDataType,
+  adress: AdressDataType,
+  payment: PaymentDataType,
+};
+
+export type FormCheckoutProps = {
+  setEtapaAtual: (etapa: number) => void,
 };
