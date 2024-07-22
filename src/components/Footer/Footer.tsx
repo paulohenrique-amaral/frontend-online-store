@@ -1,9 +1,60 @@
+import { Container, Grid, Box, Typography, styled } from '@mui/material';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
+const FooterStyled = styled('footer')(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  justifyContent: 'center',
+  marginTop: '2rem',
+  padding: '.5rem',
+}));
+
 function Footer() {
   return (
-    <footer>
-      <p>Todos os direitos reservados a FULANO</p>
-      <p>contato (99) 666-666</p>
-    </footer>
+    <FooterStyled>
+      <Grid container>
+        <Grid item xs={ 12 } md={ 12 }>
+          <Box
+            sx={ {
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              '& > *': {
+                m: 1,
+              },
+            } }
+          >
+            <ButtonGroup variant="text" aria-label="Footer button group">
+              <Button>Home</Button>
+              <Button>Termos e Condições</Button>
+              <Button>Contato</Button>
+            </ButtonGroup>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={ 12 }
+          md={ 12 }
+          sx={ {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          } }
+        >
+          <Typography
+            variant="caption"
+          >
+            Copyright © 1999-2024 bazarStore LTDA.
+          </Typography>
+          <Typography variant="caption">
+            CNPJ n.º 03.000.000/0001-00 / - empresa do grupo empresa
+          </Typography>
+        </Grid>
+      </Grid>
+    </FooterStyled>
   );
 }
 
