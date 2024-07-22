@@ -11,6 +11,16 @@ export type ProductType = {
   shipping: { free_shipping: boolean },
 };
 
+export type ProductDetailType = ProductWithQuantityType & {
+  id: string,
+  title: string,
+  thumbnail: string,
+  price: number,
+  shipping: { free_shipping: boolean },
+  warranty: string,
+  pictures: { url: string }[],
+};
+
 export type ProductWithQuantityType = ProductType &
 { quantity: number, available_quantity: number };
 
@@ -34,6 +44,8 @@ export type ProviderValues = {
   setPersonData: (data: ClientDataType) => void,
   etapaAtual: number,
   setEtapaAtual: (etapa: number) => void,
+  productReviews: EvaluationListType[],
+  setProductReviews: (reviews: EvaluationListType[]) => void,
 };
 
 export type ProviderProps = {
@@ -78,4 +90,11 @@ export type ClientDataType = {
 
 export type FormCheckoutProps = {
   setEtapaAtual: (etapa: number) => void,
+};
+
+export type EvaluationListType = {
+  id?: string,
+  email: string,
+  evaluation: string,
+  rating: number,
 };

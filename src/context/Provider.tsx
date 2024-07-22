@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  ProviderProps, ProviderValues, PersonDataType, ClientDataType,
+  ProviderProps, ProviderValues, EvaluationListType, ClientDataType,
 } from '../types/apiTypes';
 import Context from './Context';
 import useCart from '../hook/useCart';
@@ -35,6 +35,7 @@ function Provider({ children }: ProviderProps) {
   const [open, setOpen] = useState(false);
   const [personData, setPersonData] = useState<ClientDataType>(initialState);
   const [etapaAtual, setEtapaAtual] = useState(0);
+  const [productReviews, setProductReviews] = useState<EvaluationListType[]>([]);
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -79,6 +80,8 @@ function Provider({ children }: ProviderProps) {
     setPersonData,
     etapaAtual,
     setEtapaAtual,
+    productReviews,
+    setProductReviews,
   };
 
   return (
