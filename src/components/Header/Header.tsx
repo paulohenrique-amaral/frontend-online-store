@@ -1,18 +1,6 @@
-// import styled from "@emotion/styled";
-import { styled, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
-
-const HeaderStyled = styled('header')(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.text.secondary,
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1rem 1rem',
-  marginBottom: '1rem',
-}));
+import { HeaderStyled } from './HeaderStyled';
 
 function Header() {
   return (
