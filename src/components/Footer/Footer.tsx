@@ -1,16 +1,7 @@
-import { Container, Grid, Box, Typography, styled } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-
-const FooterStyled = styled('footer')(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'start',
-  justifyContent: 'center',
-  marginTop: '2rem',
-  padding: '.5rem',
-}));
+import { FooterStyled } from './FooterStyled';
 
 function Footer() {
   return (
