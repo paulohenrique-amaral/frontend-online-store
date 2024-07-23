@@ -6,3 +6,17 @@ export const scrollToSection = (page: string) => {
     }
   }
 };
+
+export const initialProductDetails = {
+  id: '',
+  title: '',
+  thumbnail: '',
+  price: 0,
+  shipping: { free_shipping: false },
+  warranty: '',
+  pictures: [
+    { url: '' },
+  ],
+  quantity: 0,
+  available_quantity: 0,
+};
