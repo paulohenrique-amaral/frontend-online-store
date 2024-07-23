@@ -24,7 +24,9 @@ function CategoriesList() {
   if (loading) return <Loading />;
 
   return (
-    <Box sx={ { width: '100%', maxWidth: 360, bgcolor: 'background.paper' } }>
+    <Box
+      sx={ { width: '100%', maxWidth: 360, bgcolor: 'background.paper' } }
+    >
       <Box sx={ { padding: '0.9rem' } }>
         <Typography variant="h6">
           CATEGORIAS

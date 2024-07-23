@@ -1,14 +1,12 @@
-import * as React from 'react';
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { StyledEngineProvider } from '@mui/material/styles';
-import { Grid, Container, Box, Typography, TextField } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import Context from '../../context/Context';
-import ModalFormChild from '../ModalFormChild/ModalFormChild';
-import { style, FormStyled, CssTextField } from './ModalFormCheckoutStyled';
+// import ModalFormChild from '../ModalFormChild/ModalFormChild';
+import { style } from './ModalFormCheckoutStyled';
 import FormCheckoutPerson from '../FormCheckoutPerson/FormCheckoutPerson';
 import FormCheckoutAdress from '../FormCheckoutAdress/FormCheckoutAdress';
 import FormCheckoutPayment from '../FormCheckoutPayment/FormCheckoutPayment';
@@ -20,7 +18,7 @@ type ModalFormCheckoutProps = {
 };
 
 function ModalFormCheckout({ open, setOpen }: ModalFormCheckoutProps) {
-  const { personData, etapaAtual, setEtapaAtual } = useContext(Context);
+  const { etapaAtual, setEtapaAtual } = useContext(Context);
 
   useEffect(() => {
     setEtapaAtual(1);
@@ -30,7 +28,6 @@ function ModalFormCheckout({ open, setOpen }: ModalFormCheckoutProps) {
     setOpen(false);
     setEtapaAtual(1);
   };
-  console.log(personData);
 
   return (
     <StyledEngineProvider injectFirst>

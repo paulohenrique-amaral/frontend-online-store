@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import Context from '../../context/Context';
 
 function ReviewsSection() {
-  const [value, setValue] = useState<number | null>(2);
   const { productId } = useParams<string>();
   const productIdAsserted = productId!;
 

@@ -9,7 +9,10 @@ function CategoriesListDrawer() {
   return (
     <StyledEngineProvider injectFirst>
       <div>
-        <Drawer open={ open } onClose={ (event, reason) => toggleDrawer(false) }>
+        <Drawer
+          open={ open }
+          onClose={ () => toggleDrawer(false) }
+        >
           <CategoriesList />
         </Drawer>
       </div>
