@@ -1,113 +1,33 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback, useContext } from 'react';
-import { StyledEngineProvider } from '@mui/material/styles';
-import { Grid, Container, Box, Typography, TextField } from '@mui/material';
-import Modal from '@mui/material/Modal';
+import { useState, useEffect } from 'react';
+import { Typography, TextField } from '@mui/material';
+// import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import Context from '../../context/Context';
-import ModalFormChild from '../ModalFormChild/ModalFormChild';
-import { style, FormStyled, CssTextField } from './FormCheckoutAdressStyled';
-import { FormCheckoutProps } from '../../types/apiTypes';
-
-const schemaForm = z.object({
-  adress: z.object({
-    zipCode: z.string().min(8, 'Por favor, insira um CEP válido'),
-    street: z.string().min(1, 'Por favor, insira um endereço válido'),
-    number: z.string().min(1, 'Por favor, insira um número válido'),
-    district: z.string().min(1, 'Por favor, insira um bairro válido'),
-    complement: z.string(),
-    city: z.string().min(1, 'Por favor, insira uma cidade válida'),
-    state: z.string().min(1, 'Por favor, insira um estado válido'),
-  }),
-});
-
-type FormValues = z.infer<typeof schemaForm>;
-
-type AdressType = {
-  logradouro: string,
-  bairro: string,
-  uf: string,
-  localidade: string,
-};
+// import ModalFormChild from '../ModalFormChild/ModalFormChild';
+import { FormStyled, CssTextField } from './FormCheckoutAdressStyled';
+import useFormAdress from '../../hook/useFormAdress';
 
 function FormCheckoutAdress() {
   const [isFocused, setIsFocused] = useState(false);
 
-  const { personData, setPersonData, setEtapaAtual } = useContext(Context);
-
-  const { register, handleSubmit, formState, watch, setValue } = useForm<FormValues>({
-    criteriaMode: 'all',
-    mode: 'all',
-    resolver: zodResolver(schemaForm),
-    defaultValues: {
-      adress: {
-        zipCode: '',
-        street: '',
-        number: '',
-        district: '',
-        complement: '',
-        city: '',
-        state: '',
-      },
-    },
-  });
-
-  const { errors, isSubmitting, isValid } = formState;
-
-  const cepField = 'adress.zipCode';
-  const logradouroField = 'adress.street';
-  const bairroField = 'adress.district';
-  const ufField = 'adress.state';
-  const localidadeField = 'adress.city';
-
-  const zipcode = watch(cepField);
-  const logradouro = watch(logradouroField);
-  const bairro = watch(bairroField);
-  const uf = watch(ufField);
-  const localidade = watch(localidadeField);
-
-  const handleSubmitForm = (data: FormValues) => {
-    if (isValid) {
-      setEtapaAtual(3);
-      const updatedData = {
-        ...personData,
-        adress: data.adress,
-      };
-      setPersonData(updatedData);
-      setPersonData(updatedData);
-      // console.log(data);
-    }
-  };
-
-  const handleSetData = useCallback((data: AdressType) => {
-    setValue(logradouroField, data.logradouro);
-    setValue(bairroField, data.bairro);
-    setValue(ufField, data.localidade);
-    setValue(localidadeField, data.uf);
-  }, [setValue]);
-
-  const handleFetchAdress = useCallback(async (zipcodeAdress: string) => {
-    const data = await fetch(`https://viacep.com.br/ws/${zipcodeAdress}/json/`);
-    const response = await data.json();
-
-    // if (response.erro) {
-    //   setError('CEP inválido');
-    //   return;
-    // }
-
-    handleSetData(response);
-  }, [handleSetData]);
+  const {
+    register,
+    handleSubmit,
+    handleFetchAdress,
+    zipcode,
+    handleSubmitForm,
+    errors,
+    logradouro,
+    bairro,
+    uf,
+    localidade,
+  } = useFormAdress();
 
   useEffect(() => {
     if (zipcode.length === 8) {
       handleFetchAdress(zipcode);
     }
   }, [handleFetchAdress, zipcode]);
-
-  console.log(personData);
 
   return (
     <FormStyled

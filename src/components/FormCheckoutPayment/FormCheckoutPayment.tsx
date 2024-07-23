@@ -1,20 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { Box } from '@mui/material';
-import Context from '../../context/Context';
 import CheckoutAnimation from '../CheckoutAnimation/CheckoutAnimation';
 import FormCreditCard from '../FormCreditCard/FormCreditCard';
 import BoletoComponent from '../BoletoComponent/BoletoComponent';
-import { FormCheckoutProps } from '../../types/apiTypes';
 
 function FormCheckoutPayment() {
   const [paymentMethod, setPaymentMethod] = useState('');
-
-  const { setEtapaAtual } = useContext(Context);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(event.target.value);

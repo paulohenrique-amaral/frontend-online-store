@@ -1,58 +1,10 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
-import { Grid, Container, Box, Typography, TextField } from '@mui/material';
+import { Typography, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import Context from '../../context/Context';
-import { style, FormStyled, CssTextField } from './FormCheckoutPersonStyled';
-import { FormCheckoutProps } from '../../types/apiTypes';
-
-const schemaForm = z.object({
-  person: z.object({
-    name: z.string().min(3, 'Por favor, insira um nome válido'),
-    cpf: z.string().min(11, 'Por favor, insira um CPF válido'),
-    date: z.string().min(6, 'Por favor, insira uma data válida'),
-    email: z.string().min(1, 'Por favor, insira um email válido'),
-    telefone: z.string().min(11, 'Por favor, insira um telefone válido'),
-  }),
-});
-
-type FormValues = z.infer<typeof schemaForm>;
+import { FormStyled, CssTextField } from './FormCheckoutPersonStyled';
+import useFormPerson from '../../hook/useFormPerson';
 
 function FormCheckoutPerson() {
-  const { personData, setPersonData, setEtapaAtual } = useContext(Context);
-
-  const { register, handleSubmit, formState, watch, setValue } = useForm<FormValues>({
-    criteriaMode: 'all',
-    mode: 'all',
-    resolver: zodResolver(schemaForm),
-    defaultValues: {
-      person: {
-        name: '',
-        cpf: '',
-        date: '',
-        email: '',
-        telefone: '',
-      },
-    },
-  });
-
-  const { errors, isSubmitting, isDirty, isValid } = formState;
-
-  const handleSubmitForm = (data: FormValues) => {
-    if (isValid) {
-      setEtapaAtual(2);
-    }
-    const updatedData = {
-      ...personData,
-      person: data.person,
-    };
-    setPersonData(updatedData);
-    // console.log(data);
-  };
-
-  console.log(personData);
+  const { register, handleSubmit, errors, handleSubmitForm } = useFormPerson();
 
   return (
     <FormStyled

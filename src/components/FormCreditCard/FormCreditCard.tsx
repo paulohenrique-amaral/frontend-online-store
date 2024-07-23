@@ -1,7 +1,4 @@
-import { useContext } from 'react';
-import { useForm, Controller, set } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { Controller } from 'react-hook-form';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
 import CardContent from '@mui/joy/CardContent';
@@ -14,38 +11,10 @@ import Button from '@mui/joy/Button';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { StyledEngineProvider, CssVarsProvider } from '@mui/joy/styles';
-import Context from '../../context/Context';
-
-const schema = z.object({
-  cardNumber: z.string().min(1, 'Card number is required'),
-  expiryDate: z.string().min(1, 'Expiry date is required'),
-  cvc: z.string().min(1, 'CVC is required'),
-  cardHolderName: z.string().min(1, 'Card holder name is required'),
-});
-
-type FormData = z.infer<typeof schema>;
+import useFormCreditCard from '../../hook/useFormCreditCard';
 
 function FormCreditCard() {
-  const { personData, setPersonData, setEtapaAtual } = useContext(Context);
-
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      cardNumber: '',
-      expiryDate: '',
-      cvc: '',
-      cardHolderName: '',
-    },
-  });
-
-  const onSubmit = (data: FormData) => {
-    const updatedData = {
-      ...personData,
-      payment: data,
-    };
-    setPersonData(updatedData);
-    setEtapaAtual(4);
-  };
+  const { control, handleSubmit, errors, onSubmit } = useFormCreditCard();
 
   return (
     <StyledEngineProvider injectFirst>
