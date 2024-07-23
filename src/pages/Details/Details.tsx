@@ -9,20 +9,7 @@ import StarRating from '../../components/StarRating/StarRating';
 import { ProductDetailType } from '../../types/apiTypes';
 import FormEvaluation from '../../components/FormEvaluation/FormEvaluation';
 import ReviewsSection from '../../components/ReviewsSection/ReviewsSection';
-
-const initialProductDetails = {
-  id: '',
-  title: '',
-  thumbnail: '',
-  price: 0,
-  shipping: { free_shipping: false },
-  warranty: '',
-  pictures: [
-    { url: '' },
-  ],
-  quantity: 0,
-  available_quantity: 0,
-};
+import { initialProductDetails } from '../../help/helper';
 
 function Details() {
   const { productId } = useParams<string>();

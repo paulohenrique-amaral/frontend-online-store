@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Container, Box, Typography } from '@mui/material';
+import { Grid, Container, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Context from '../../context/Context';
 import { ProductWithQuantityType } from '../../types/apiTypes';
@@ -12,26 +12,16 @@ type CartProps = {
   clearCart: () => void,
 };
 
-const initialFormData = {
-  name: '',
-  cpf: '',
-  email: '',
-  telefone: '',
-  cep: '',
-  endereco: '',
-};
-
 function Checkout() {
-  const [formData, setFormdata] = useState<FormDataType>(initialFormData);
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState('');
-  const [selectedPayment, setSelectedPayment] = useState('');
 
-  const { cart, clearCart } = useContext(Context);
+  const { cart } = useContext(Context);
 
   return (
     <Container maxWidth="lg">
-      <h2>Resumo Checkout</h2>
+      <h2>
+        Resumo Checkout
+      </h2>
       <Grid container>
         <Grid item xs={ 12 } md={ 12 }>
           <Box
@@ -72,16 +62,12 @@ function Checkout() {
             Editar carrinho
           </Button>
         </Link>
-        {/* <Link
-          to="/checkout"
-        > */}
         <Button
           variant="outlined"
           onClick={ () => setOpen(true) }
         >
           Finalizar Compra
         </Button>
-        {/* </Link> */}
       </Box>
     </Container>
   );

@@ -7,9 +7,7 @@ import CardProduct from '../../components/CardProduct/CardProduct';
 import EmptyCart from '../../components/EmptyCart/EmptyCart';
 
 function Cart() {
-  const {
-    cart,
-  } = useContext(Context);
+  const { cart } = useContext(Context);
 
   return (
     <Container maxWidth="sm">
