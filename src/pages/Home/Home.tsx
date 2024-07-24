@@ -1,21 +1,24 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Grid, Container, useTheme, useMediaQuery } from '@mui/material';
 import Context from '../../context/Context';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import CardProduct from '../../components/CardProduct/CardProduct';
 import AlertSnackBar from '../../components/AlertSnackBar/AlertSnackBar';
+import PaginationButton from '../../components/PaginationButton/PaginationButton';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [msgResult, setMsgResult] = useState('');
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [page, setPage] = useState(1);
   const { searchApi, searchFromInput } = useContext(Context);
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 
   const msg = 'Digite algum termo de pesquisa ou escolha uma categoria.';
   const msgNoResults = 'Nenhum produto foi encontrado';
+  const ITEMS_PER_PAGE = 7;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -36,6 +39,17 @@ function Home() {
     }
     setInputSearch('');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
+
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const selectedProducts = searchApi.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
     <Container maxWidth="lg" className="container">
@@ -68,8 +82,8 @@ function Home() {
           </Grid>
         )}
         <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
-          {searchApi.length > 0 && (
-            searchApi.map((product: any) => (
+          {selectedProducts.length > 0 && (
+            selectedProducts.map((product: any) => (
               <div key={ product.id }>
                 <CardProduct
                   id={ product.id }
@@ -81,6 +95,27 @@ function Home() {
                 />
               </div>
             ))
+          )}
+        </Grid>
+        <Grid
+          item
+          xs={ 12 }
+          md={ 12 }
+          sx={ {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '2rem',
+            [theme.breakpoints.down('sm')]: {
+              marginBottom: '120px',
+            },
+          } }
+        >
+          {searchApi.length > 0 && (
+            <PaginationButton
+              count={ Math.ceil(searchApi.length / ITEMS_PER_PAGE) }
+              onChange={ handleChangePage }
+            />
           )}
         </Grid>
       </Grid>
