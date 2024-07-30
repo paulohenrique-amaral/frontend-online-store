@@ -1,4 +1,4 @@
-import { styled, Typography, Paper, Box, keyframes } from '@mui/material';
+import { styled, Paper, keyframes, Grid } from '@mui/material';
 
 export const rotate = keyframes`
   0% {
@@ -28,7 +28,7 @@ const scaleOutVertical = keyframes`
   }
 `;
 
-export const ContainerStyled = styled(Box)(({ theme }) => ({
+export const ContainerStyled = styled(Grid)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   display: 'flex',
   justifyContent: 'center',
@@ -56,14 +56,4 @@ export const Item = styled(Paper, {
   '&:hover': {
     boxShadow: '0 0 10px 0 #000',
   },
-}));
-
-export const ContentStyled = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'start',
-  justifyContent: 'space-around',
-  padding: '0.5rem',
-  margin: '0 0.5rem',
-  width: 'calc(100% - 220px)',
 }));

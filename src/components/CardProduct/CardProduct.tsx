@@ -2,10 +2,13 @@ import { useContext, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Grid } from '@mui/material';
 import { ProductWithQuantityType } from '../../types/apiTypes';
 import Context from '../../context/Context';
-import { ContainerStyled, Item, ContentStyled, rotate } from './CardProductStyled';
+import { ContainerStyled, Item, rotate } from './CardProductStyled';
+import StarRating from '../StarRating/StarRating';
+import AlertAddCart from '../AlertAddCart/AlertAddCart';
+import ButtonQuantityCart from '../ButtonQuantityCart/ButtonQuantityCart';
 
 type CardProductProps = {
   id: string;
@@ -24,51 +27,91 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
     removeItem,
     decrementItemQuantity,
     incrementItemQuantity,
+    errorEditCart,
   } = useContext(Context);
 
   const location = useLocation();
 
   const showBtn = location.pathname === '/carrinho';
+  const gridSize = showBtn ? 6 : 9;
 
   return (
-    <ContainerStyled>
+    <ContainerStyled container>
       <Item elevation={ 5 } remove={ removeCard }>
-        <Box
+        <Grid
+          item
+          xs={ 3 }
+          md={ 3 }
           sx={ {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            '& a': {
+            overflow: 'hidden',
+          } }
+        >
+          <Box
+            sx={ {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              margin: '0 0.4rem',
-            },
-            '& img': {
-              width: '100px',
-            },
+              '& a': {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: '0 0.4rem',
+              },
+              '& img': {
+                width: '100px',
+              },
+            } }
+          >
+            <Link to={ `/produto/${id}` }>
+              <img src={ image } alt={ `Product-${name}` } />
+            </Link>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={ gridSize }
+          md={ gridSize }
+          sx={ {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'start',
+            justifyContent: 'space-around',
+            padding: '0.5rem',
+            margin: '0 0.5rem',
+            width: '100%',
+            overflow: 'hidden',
           } }
         >
-          <Link to={ `/produto/${id}` }>
-            <img src={ image } alt={ `Product-${name}` } />
-          </Link>
-        </Box>
-        <ContentStyled>
           <Box
             sx={ {
+              width: '100%',
               marginBottom: '10px',
               '& a': {
                 textDecoration: 'none',
                 color: 'black',
+                overflow: 'hidden',
               },
             } }
           >
-            <Typography fontFamily="monospace">
+            <Typography
+              fontFamily="monospace"
+              sx={ {
+                fontSize: {
+                  xs: '0.8rem',
+                  sm: '1rem',
+                },
+              } }
+            >
               <Link to={ `/produto/${id}` }>
                 {name}
               </Link>
             </Typography>
           </Box>
+          {!showBtn && (
+            <Box>
+              <StarRating productIdAsserted={ id } />
+            </Box>
+          )}
           <Box
             sx={
             { display: 'flex', alignItems: 'baseline', gap: '0.3rem' }
@@ -101,55 +144,25 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
               </Button>
             </Box>
           )}
-          <Box>
-            <Typography variant="h6" color="#00A650">
-              {freight ? 'Frete Grátis' : ''}
-            </Typography>
-          </Box>
-        </ContentStyled>
+          {!showBtn && (
+            <Box>
+              <Typography variant="h6" color="#00A650">
+                {freight ? 'Frete Grátis' : ''}
+              </Typography>
+            </Box>
+          )}
+        </Grid>
         { showBtn && (
-          <Box
-            sx={ {
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              gap: '0.5rem',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              margin: '0.7rem',
-              '& button': {
-                minWidth: '0px',
-              },
-            } }
+          <Grid
+            item
+            xs={ 3 }
+            md={ 3 }
           >
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={ () => {
-                if (product.quantity <= 1) {
-                  setRemoveCard(true);
-                  setTimeout(() => {
-                    removeItem(product.id);
-                  }, 200);
-                } else {
-                  decrementItemQuantity(product.id);
-                }
-              } }
-            >
-              -
-            </Button>
-            <Typography>
-              {product.quantity}
-            </Typography>
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={ () => incrementItemQuantity(product.id) }
-            >
-              +
-            </Button>
-          </Box>
+            <ButtonQuantityCart
+              product={ product }
+              setRemoveCard={ setRemoveCard }
+            />
+          </Grid>
         )}
       </Item>
     </ContainerStyled>
