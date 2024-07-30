@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { Box } from '@mui/material';
-import { CategoryType, ProductType } from '../../types/apiTypes';
+import { CategoryType, ProductWithQuantityType } from '../../types/apiTypes';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
 import OffersCardProducts from '../OffersCardProducts/OffersCardProducts';
 import Loading from '../Loading/Loading';
@@ -19,24 +19,22 @@ type OffersGridProps = {
 };
 
 function OffersGrid({ category }: OffersGridProps) {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [products, setProducts] = useState<ProductWithQuantityType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
     const fetchAndSetProduct = async () => {
-      const categories = await getProductsFromCategoryAndQuery(category.id, null);
-      const shuffledCategories = categories.sort(() => Math.random() - 0.5);
-      const selectedCategories = shuffledCategories.slice(0, 5);
-      setProducts(selectedCategories);
+      const productsResult = await getProductsFromCategoryAndQuery(category.id, null);
+      const shuffledProducts = productsResult.sort(() => Math.random() - 0.5);
+      const selectedProducts = shuffledProducts.slice(0, 10);
+      setProducts(selectedProducts);
     };
     fetchAndSetProduct();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }, []);
-
-  console.log(products);
 
   return (
     loading ? (
@@ -73,13 +71,15 @@ function OffersGrid({ category }: OffersGridProps) {
           },
         } }
         modules={ [Pagination] }
-        className="mySwiper custom-swiper"
+        className="swiper-slide"
       >
-        {products.map((product) => (
-          <SwiperSlide key={ product.id }>
-            <OffersCardProducts product={ product } />
-          </SwiperSlide>
-        ))}
+        {products.length > 0 && (
+          products.map((product) => (
+            <SwiperSlide key={ product.id }>
+              <OffersCardProducts product={ product } />
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     )
   );

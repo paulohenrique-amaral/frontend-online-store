@@ -49,7 +49,9 @@ function Offers() {
               xs={ 12 }
               md={ 12 }
               sx={ {
-                padding: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '3rem 1rem',
                 backgroundColor: 'background.paper',
               } }
             >
@@ -63,7 +65,7 @@ function Offers() {
                   variant="body1"
                   align="left"
                   textTransform="uppercase"
-                  style={ { fontWeight: 'bold' } }
+                  style={ { fontWeight: 'bold', marginBottom: '1rem' } }
                 >
                   {`Ofertas e Novidades - ${category.name}`}
                 </Typography>
