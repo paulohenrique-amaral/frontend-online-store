@@ -1,9 +1,11 @@
 import { Grid, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { FooterStyled } from './FooterStyled';
 
 function Footer() {
+  const navigate = useNavigate();
   return (
     <FooterStyled>
       <Grid container>
@@ -19,9 +21,21 @@ function Footer() {
             } }
           >
             <ButtonGroup variant="text" aria-label="Footer button group">
-              <Button>Home</Button>
-              <Button>Termos e Condições</Button>
-              <Button>Contato</Button>
+              <Button
+                onClick={ () => navigate('/') }
+              >
+                Home
+              </Button>
+              <Button
+                onClick={ () => navigate('/terms') }
+              >
+                Termos e Condições
+              </Button>
+              <Button
+                onClick={ () => navigate('/contato') }
+              >
+                Contato
+              </Button>
             </ButtonGroup>
           </Box>
         </Grid>
