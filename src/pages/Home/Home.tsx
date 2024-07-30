@@ -1,24 +1,27 @@
 import { useState, useContext, useEffect } from 'react';
 import { Grid, Container, useTheme, useMediaQuery } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Context from '../../context/Context';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import CardProduct from '../../components/CardProduct/CardProduct';
 import AlertSnackBar from '../../components/AlertSnackBar/AlertSnackBar';
 import PaginationButton from '../../components/PaginationButton/PaginationButton';
+import { Root } from './HomeStyled';
+import Offers from '../../components/Offers/Offers';
 
 function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [msgResult, setMsgResult] = useState('');
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [page, setPage] = useState(1);
-  const { searchApi, searchFromInput } = useContext(Context);
+  const { searchApi, searchFromInput, setSearchApi } = useContext(Context);
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 
   const msg = 'Digite algum termo de pesquisa ou escolha uma categoria.';
   const msgNoResults = 'Nenhum produto foi encontrado';
-  const ITEMS_PER_PAGE = 7;
+  const ITEMS_PER_PAGE = 8;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -39,6 +42,10 @@ function Home() {
     }
     setInputSearch('');
   };
+
+  useEffect(() => {
+    setSearchApi([]);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,13 +83,16 @@ function Home() {
             />
           </form>
         </Grid>
+        <Root>
+          <Divider />
+        </Root>
         { !matchesXS && (
           <Grid item sm={ 4 } md={ 3 }>
             <CategoriesList />
           </Grid>
         )}
         <Grid item xs={ 12 } sm={ 8 } md={ 9 }>
-          {selectedProducts.length > 0 && (
+          {selectedProducts.length > 0 ? (
             selectedProducts.map((product: any) => (
               <div key={ product.id }>
                 <CardProduct
@@ -95,6 +105,8 @@ function Home() {
                 />
               </div>
             ))
+          ) : (
+            <Offers />
           )}
         </Grid>
         <Grid
