@@ -1,3 +1,5 @@
+import { ProductWithQuantityType } from '../types/apiTypes';
+
 export const scrollToSection = (page: string) => {
   if (page) {
     const section = document.getElementById(page);
@@ -19,4 +21,12 @@ export const initialProductDetails = {
   ],
   quantity: 0,
   available_quantity: 0,
+};
+
+export const handleCalculateTotalCart = (cart: ProductWithQuantityType[]) => {
+  return cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+    .toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
 };
