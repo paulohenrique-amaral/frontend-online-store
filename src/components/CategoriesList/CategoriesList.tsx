@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,7 +16,11 @@ function CategoriesList() {
     fetchCategories,
     searchFromCategories,
     toggleDrawer,
+    setPage,
   } = useContext(Context);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     fetchCategories();
@@ -39,8 +44,12 @@ function CategoriesList() {
               <ListItem disablePadding>
                 <ListItemButton
                   onClick={ async () => {
+                    if (location.pathname !== '/') {
+                      navigate('/');
+                    }
                     await searchFromCategories(`${category.id}`);
                     toggleDrawer(false);
+                    setPage(1);
                   } }
                 >
                   <ListItemText primary={ category.name } />
