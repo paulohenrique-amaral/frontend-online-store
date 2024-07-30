@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Link as LinkRoute } from 'react-router-dom';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Button from '@mui/joy/Button';
@@ -10,10 +11,12 @@ import Typography from '@mui/joy/Typography';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { StyledEngineProvider, CssVarsProvider } from '@mui/joy/styles';
 import { styled } from '@mui/material';
-import { ProductType } from '../../types/apiTypes';
+import Context from '../../context/Context';
+import { ProductWithQuantityType } from '../../types/apiTypes';
+import { useFormatCurrency } from '../../hook/useFormatCurrency';
 
 type OffersCardProductsProps = {
-  product: ProductType;
+  product: ProductWithQuantityType;
 };
 
 const ImgStyled = styled('img')(({ theme }) => ({
@@ -23,19 +26,27 @@ const ImgStyled = styled('img')(({ theme }) => ({
 }));
 
 function OffersCardProducts({ product }: OffersCardProductsProps) {
+  const { handleAddToCart } = useContext(Context);
+  const formatCurrency = useFormatCurrency();
+
   return (
     <StyledEngineProvider injectFirst>
       <CssVarsProvider>
         <Card
-          sx={ { width: 320, maxWidth: '100%', boxShadow: 'lg' } }
+          sx={ {
+            width: 320,
+            height: 250,
+            maxWidth: '100%',
+            boxShadow: 'lg',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          } }
         >
           <CardOverflow>
             <AspectRatio
               color="neutral"
               objectFit="contain"
-              sx={ {
-                background: 'red',
-              } }
             >
               <LinkRoute to={ `/produto/${product.id}` }>
                 <ImgStyled
@@ -46,7 +57,12 @@ function OffersCardProducts({ product }: OffersCardProductsProps) {
               </LinkRoute>
             </AspectRatio>
           </CardOverflow>
-          <CardContent>
+          <CardContent
+            sx={ {
+              flexGrow: 1,
+              justifyContent: 'space-around',
+            } }
+          >
             <Link
               href={ `/produto/${product.id}` }
               fontWeight="sx"
@@ -66,18 +82,18 @@ function OffersCardProducts({ product }: OffersCardProductsProps) {
 
             <Typography
               level="title-lg"
-              sx={ { mt: 1, fontWeight: 'xl' } }
+              sx={ {
+                mt: 1,
+                fontWeight: 'xl',
+                flexWrap: 'wrap',
+              } }
               endDecorator={
                 <Chip component="span" size="sm" variant="soft" color="success">
                   Oferta
                 </Chip>
-          }
+              }
             >
-              {product.price
-                .toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                })}
+              {formatCurrency(product.price)}
             </Typography>
           </CardContent>
           <CardOverflow>
@@ -85,6 +101,7 @@ function OffersCardProducts({ product }: OffersCardProductsProps) {
               variant="solid"
               color="primary"
               size="md"
+              onClick={ () => handleAddToCart(product) }
             >
               Adicionar ao carrinho
             </Button>
