@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Context from '../../context/Context';
 
-function StarRating() {
+type StarRatingProps = {
+  productIdAsserted: string;
+};
+
+function StarRating({ productIdAsserted }: StarRatingProps) {
   const [rating, setRating] = useState(0);
-  const { productId } = useParams<string>();
-  const productIdAsserted = productId!;
   const { productReviews } = useContext(Context);
 
   const reviews = productReviews.filter((review) => review.id === productIdAsserted);
