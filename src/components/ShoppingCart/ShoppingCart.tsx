@@ -27,7 +27,7 @@ function ShoppingCart() {
             },
           } }
         >
-          <ShoppingCartIcon style={ { fontSize: '2rem' } } />
+          <ShoppingCartIcon style={ { fontSize: '1.5rem' } } />
         </StyledBadge>
       </IconButton>
       <CartDrawer />
