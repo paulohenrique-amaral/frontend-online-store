@@ -26,6 +26,7 @@ function useFetch() {
 
   return {
     searchApi,
+    setSearchApi,
     categories,
     loading,
     fetchCategories,

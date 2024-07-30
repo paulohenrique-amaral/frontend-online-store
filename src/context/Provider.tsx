@@ -33,12 +33,17 @@ const initialState: ClientDataType = {
 
 function Provider({ children }: ProviderProps) {
   const [open, setOpen] = useState(false);
+  const [cartDrawer, setCartDrawer] = useState(false);
   const [personData, setPersonData] = useState<ClientDataType>(initialState);
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [productReviews, setProductReviews] = useState<EvaluationListType[]>([]);
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
+  };
+
+  const toggleCartDrawer = (newOpen: boolean) => {
+    setCartDrawer(newOpen);
   };
 
   const {
@@ -49,10 +54,13 @@ function Provider({ children }: ProviderProps) {
     incrementItemQuantity,
     decrementItemQuantity,
     clearCart,
+    errorEditCart,
+    setErrorEditCart,
   } = useCart();
 
   const {
     searchApi,
+    setSearchApi,
     categories,
     loading,
     fetchCategories,
@@ -68,7 +76,10 @@ function Provider({ children }: ProviderProps) {
     incrementItemQuantity,
     decrementItemQuantity,
     clearCart,
+    errorEditCart,
+    setErrorEditCart,
     searchApi,
+    setSearchApi,
     categories,
     loading,
     fetchCategories,
@@ -82,6 +93,8 @@ function Provider({ children }: ProviderProps) {
     setEtapaAtual,
     productReviews,
     setProductReviews,
+    cartDrawer,
+    toggleCartDrawer,
   };
 
   return (

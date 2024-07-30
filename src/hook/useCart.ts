@@ -13,6 +13,8 @@ function useCart() {
       .reduce((acc: number, curr: ProductWithQuantityType) => acc + curr.quantity, 0);
   });
 
+  const [errorEditCart, setErrorEditCart] = useState(false);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('cartSize', JSON.stringify(cartSize));
@@ -38,9 +40,26 @@ function useCart() {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   }, []);
 
-  const incrementItemQuantity = useCallback((id: string) => {
-    setCart((prevCart) => prevCart
-      .map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)));
+  // const incrementItemQuantity = useCallback((id: string) => {
+  //   setCart((prevCart) => prevCart
+  //     .map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)));
+  // }, []);
+
+  const incrementItemQuantity = useCallback((id: string, stock: number) => {
+    setErrorEditCart(false);
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((item) => {
+        if (item.id === id) {
+          if (item.quantity < stock) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          setErrorEditCart(true);
+          return item;
+        }
+        return item;
+      });
+      return updatedCart;
+    });
   }, []);
 
   const decrementItemQuantity = useCallback((id: string) => {
@@ -70,6 +89,8 @@ function useCart() {
     incrementItemQuantity,
     decrementItemQuantity,
     clearCart,
+    errorEditCart,
+    setErrorEditCart,
   };
 }
 

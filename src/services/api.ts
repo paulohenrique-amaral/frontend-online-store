@@ -16,7 +16,8 @@ export async function getCategories(): Promise<CategoryType[]> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    // console.log(data);
+    // console.log('categorias', data);
+
     return data;
   } catch (error) {
     console.error('Failed to fetch categories:', error);
@@ -35,7 +36,7 @@ export async function getProductsFromCategoryAndQuery(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data.results);
+    // console.log('produtos', data.results);
 
     return data.results;
   } catch (error) {
@@ -51,7 +52,6 @@ export async function getProductById(productId: string): Promise<any> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
 
     return data;
   } catch (error) {

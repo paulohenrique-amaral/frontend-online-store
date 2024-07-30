@@ -19,6 +19,7 @@ export type ProductDetailType = ProductWithQuantityType & {
   shipping: { free_shipping: boolean },
   warranty: string,
   pictures: { url: string }[],
+  available_quantity: number,
 };
 
 export type ProductWithQuantityType = ProductType &
@@ -29,10 +30,13 @@ export type ProviderValues = {
   cartSize: number,
   handleAddToCart: (product: ProductWithQuantityType) => void,
   removeItem: (id: string) => void,
-  incrementItemQuantity: (id: string) => void,
+  incrementItemQuantity: (id: string, stock: number) => void,
   decrementItemQuantity: (id: string) => void,
   clearCart: () => void,
+  errorEditCart: boolean,
+  setErrorEditCart: (error: boolean) => void,
   searchApi: ProductType[],
+  setSearchApi: (data: ProductType[]) => void,
   categories: CategoryType[],
   loading: boolean,
   fetchCategories: () => void,
@@ -46,6 +50,8 @@ export type ProviderValues = {
   setEtapaAtual: (etapa: number) => void,
   productReviews: EvaluationListType[],
   setProductReviews: (reviews: EvaluationListType[]) => void,
+  cartDrawer: boolean,
+  toggleCartDrawer: (newOpen: boolean) => void,
 };
 
 export type ProviderProps = {
