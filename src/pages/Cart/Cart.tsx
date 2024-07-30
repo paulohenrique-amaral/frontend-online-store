@@ -6,12 +6,13 @@ import Context from '../../context/Context';
 import CardProduct from '../../components/CardProduct/CardProduct';
 import EmptyCart from '../../components/EmptyCart/EmptyCart';
 import { handleCalculateTotalCart } from '../../help/helper';
+import TableDashBoard from '../../components/TableDashBoard/TableDashBoard';
 
 function Cart() {
   const { cart } = useContext(Context);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="md">
       <Typography
         variant="h4"
         sx={ {
@@ -25,20 +26,20 @@ function Cart() {
         container
         sx={ {
           display: 'flex',
-          justifyContent: 'space-around',
+          justifyContent: 'center',
         } }
       >
         <Grid
           item
           xs={ 12 }
-          md={ 6 }
+          md={ 12 }
           sx={ {
             height: '600px',
             overflow: 'auto',
             backgroundColor: 'white',
             marginTop: '1em',
             borderRadius: '5px',
-            boxShadow: `rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, 
+            boxShadow: `rgba(155, 156, 158, 0.25) 0px 4px 8px -2px, 
             rgba(9, 30, 66, 0.08) 0px 0px 0px 1px`,
           } }
         >
@@ -75,9 +76,10 @@ function Cart() {
         <Grid
           item
           xs={ 12 }
-          md={ 5 }
+          md={ 12 }
           sx={ {
             height: '600px',
+            overflow: 'auto',
             backgroundColor: 'white',
             marginTop: '1em',
             padding: '1em',
@@ -86,91 +88,50 @@ function Cart() {
              rgba(9, 30, 66, 0.08) 0px 0px 0px 1px`,
           } }
         >
-          <Typography
-            variant="h5"
-          >
-            Resumo do Pedido
-          </Typography>
-          {cart.map((product: any, index: number) => (
-            <Grid
-              container
-              key={ product.id }
+          <TableDashBoard />
+          <Box>
+            <Typography
+              variant="h6"
               sx={ {
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '0.5em',
+                padding: '0 1em',
+                marginTop: '1em',
               } }
             >
-              <Typography
-                variant="body1"
-              >
-                {index + 1}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={ {
-                  width: '50%',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                } }
-              >
-                {product.title}
-              </Typography>
-              <Typography
-                variant="body1"
-              >
-                {product.price.toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                })}
-              </Typography>
-              <Typography
-                variant="body1"
-              >
-                {product.quantity}
-                x
-              </Typography>
-            </Grid>
-          ))}
-          <Typography
-            variant="h5"
+              Total:
+              {' '}
+              {handleCalculateTotalCart(cart)}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={ 12 }
+          sx={ {
+            marginBottom: '7em',
+          } }
+        >
+          <Box
             sx={ {
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               marginTop: '1em',
+              padding: '1em',
             } }
           >
-            Total
-            {' '}
-            {handleCalculateTotalCart(cart)}
-          </Typography>
+            <Link to="/">
+              <Button variant="outlined">
+                Voltar às Compras
+              </Button>
+            </Link>
+            <Link to="/checkout">
+              <Button variant="outlined">
+                Checkout
+              </Button>
+            </Link>
+          </Box>
         </Grid>
       </Grid>
-      <Box
-        sx={ {
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: '1em',
-          marginBottom: '6em',
-          padding: '1em',
-        } }
-      >
-        <Link
-          to="/"
-        >
-          <Button variant="outlined">
-            Voltar ás Compras
-          </Button>
-        </Link>
-        <Link
-          to="/checkout"
-        >
-          <Button variant="outlined">
-            Checkout
-          </Button>
-        </Link>
-      </Box>
     </Container>
   );
 }
