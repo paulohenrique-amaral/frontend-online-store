@@ -14,8 +14,8 @@ function Home() {
   const [inputSearch, setInputSearch] = useState<string>('');
   const [msgResult, setMsgResult] = useState('');
   const [openSnackBar, setOpenSnackBar] = useState(false);
-  const [page, setPage] = useState(1);
-  const { searchApi, searchFromInput, setSearchApi } = useContext(Context);
+  // const [page, setPage] = useState(1);
+  const { searchApi, searchFromInput, setSearchApi, page, setPage } = useContext(Context);
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -41,6 +41,7 @@ function Home() {
       setOpenSnackBar(true);
     }
     setInputSearch('');
+    setPage(1);
   };
 
   useEffect(() => {
@@ -126,6 +127,7 @@ function Home() {
           {searchApi.length > 0 && (
             <PaginationButton
               count={ Math.ceil(searchApi.length / ITEMS_PER_PAGE) }
+              page={ page }
               onChange={ handleChangePage }
             />
           )}

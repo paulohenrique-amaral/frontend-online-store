@@ -37,6 +37,7 @@ function Provider({ children }: ProviderProps) {
   const [personData, setPersonData] = useState<ClientDataType>(initialState);
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [productReviews, setProductReviews] = useState<EvaluationListType[]>([]);
+  const [page, setPage] = useState(1);
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -95,6 +96,8 @@ function Provider({ children }: ProviderProps) {
     setProductReviews,
     cartDrawer,
     toggleCartDrawer,
+    page,
+    setPage,
   };
 
   return (

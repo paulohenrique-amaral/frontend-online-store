@@ -52,6 +52,8 @@ export type ProviderValues = {
   setProductReviews: (reviews: EvaluationListType[]) => void,
   cartDrawer: boolean,
   toggleCartDrawer: (newOpen: boolean) => void,
+  page: number,
+  setPage: (page: number) => void,
 };
 
 export type ProviderProps = {
