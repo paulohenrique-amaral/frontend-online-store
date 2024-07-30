@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, Typography } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import Search from '@mui/icons-material/Search';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import ListIcon from '@mui/icons-material/List';
 import Context from '../../context/Context';
 import CategoriesListDrawer from '../CategoriesListDrawer/CategoriesListDrawer';
@@ -20,13 +20,15 @@ function NavigateMobile() {
     setActiveIcon(iconName);
   };
 
-  const handleNavigationSearch = () => {
-    if (location.pathname === '/') {
-      window.location.reload();
-    } else {
-      navigate('/');
-    }
-  };
+  // const handleNavigationSearch = () => {
+  //   if (location.pathname === '/') {
+  //     window.location.reload();
+  //     setTimeout(() => setActiveIcon(''), 4000);
+  //   } else {
+  //     navigate('/');
+  //     setTimeout(() => setActiveIcon(''), 4000);
+  //   }
+  // };
 
   const handleNavigationHome = () => {
     if (location.pathname === '/') {
@@ -34,6 +36,7 @@ function NavigateMobile() {
       setTimeout(() => setActiveIcon(''), 2000);
     } else {
       navigate('/');
+      setTimeout(() => setActiveIcon(''), 2000);
     }
   };
 
@@ -76,10 +79,10 @@ function NavigateMobile() {
               className={ `icon ${activeIcon === 'search-outline' ? 'active' : ''}` }
               onClick={ () => {
                 change('search-outline');
-                handleNavigationSearch();
+                handleNavigationHome();
               } }
             >
-              <Search />
+              <SavedSearchIcon />
               <Typography variant="caption">Busca</Typography>
             </Icon>
           </Grid>
