@@ -79,7 +79,9 @@ function Details() {
               {product?.title}
             </Typography>
             <Box>
-              <StarRating />
+              <StarRating
+                productIdAsserted={ productIdAsserted }
+              />
             </Box>
             <Box
               sx={ {
