@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 import { Grid, Container, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Context from '../../context/Context';
-import { ProductWithQuantityType } from '../../types/apiTypes';
 import CardCheckout from '../../components/CardCheckout/CardCheckout';
 import ModalFormCheckout from '../../components/ModalFormCheckout/ModalFormCheckout';
-
-type CartProps = {
-  cart: ProductWithQuantityType[],
-  clearCart: () => void,
-};
+import { handleCalculateTotalCart } from '../../help/helper';
 
 function Checkout() {
   const [open, setOpen] = useState(false);
@@ -45,6 +40,17 @@ function Checkout() {
         </Grid>
         <ModalFormCheckout open={ open } setOpen={ setOpen } />
       </Grid>
+      <Box
+        sx={ {
+          marginTop: '3em',
+        } }
+      >
+        <h3>
+          Total:
+          {' '}
+          { handleCalculateTotalCart(cart) }
+        </h3>
+      </Box>
       <Box
         sx={ {
           display: 'flex',
