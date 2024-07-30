@@ -10,6 +10,7 @@ import NavigateMobile from './components/NavigateMobile/NavigateMobile';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
 import AlertAddCart from './components/AlertAddCart/AlertAddCart';
 import Contact from './pages/Contact/Contact';
+import Login from './pages/Login/Login';
 
 function App() {
   const theme = useTheme();
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/contato"
           element={ <Contact /> }
+        />
+        <Route
+          path="/login"
+          element={ <Login /> }
         />
       </Routes>
       {matchesXS ? <NavigateMobile /> : <Footer />}
