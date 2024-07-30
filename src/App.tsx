@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useTheme, useMediaQuery, Alert } from '@mui/material';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
@@ -7,6 +7,9 @@ import Details from './pages/Details/Details';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import NavigateMobile from './components/NavigateMobile/NavigateMobile';
+import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
+import AlertAddCart from './components/AlertAddCart/AlertAddCart';
+import Contact from './pages/Contact/Contact';
 
 function App() {
   const theme = useTheme();
@@ -31,8 +34,17 @@ function App() {
           path="/produto/:productId"
           element={ <Details /> }
         />
+        <Route
+          path="/terms"
+          element={ <TermsAndConditions /> }
+        />
+        <Route
+          path="/contato"
+          element={ <Contact /> }
+        />
       </Routes>
       {matchesXS ? <NavigateMobile /> : <Footer />}
+      <AlertAddCart />
     </>
   );
 }
