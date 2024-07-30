@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, Typography } from '@mui/material';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListIcon from '@mui/icons-material/List';
 import Context from '../../context/Context';
 import CategoriesListDrawer from '../CategoriesListDrawer/CategoriesListDrawer';
@@ -19,16 +20,6 @@ function NavigateMobile() {
   const change = (iconName: any) => {
     setActiveIcon(iconName);
   };
-
-  // const handleNavigationSearch = () => {
-  //   if (location.pathname === '/') {
-  //     window.location.reload();
-  //     setTimeout(() => setActiveIcon(''), 4000);
-  //   } else {
-  //     navigate('/');
-  //     setTimeout(() => setActiveIcon(''), 4000);
-  //   }
-  // };
 
   const handleNavigationHome = () => {
     if (location.pathname === '/') {
@@ -52,8 +43,8 @@ function NavigateMobile() {
         <Grid container>
           <Grid
             item
-            xs={ 4 }
-            md={ 4 }
+            xs={ 3 }
+            md={ 3 }
             sx={ { display: 'flex', justifyContent: 'center' } }
           >
             <Icon
@@ -70,8 +61,8 @@ function NavigateMobile() {
           </Grid>
           <Grid
             item
-            xs={ 4 }
-            md={ 4 }
+            xs={ 3 }
+            md={ 3 }
             sx={ { display: 'flex', justifyContent: 'center' } }
           >
             <Icon
@@ -88,8 +79,27 @@ function NavigateMobile() {
           </Grid>
           <Grid
             item
-            xs={ 4 }
-            md={ 4 }
+            xs={ 3 }
+            md={ 3 }
+            sx={ { display: 'flex', justifyContent: 'center' } }
+          >
+            <Icon
+              name="dashboard"
+              className={ `icon ${activeIcon === 'dashboard' ? 'active' : ''}` }
+              onClick={ () => {
+                change('dashboard');
+                navigate('/carrinho');
+                setTimeout(() => setActiveIcon(''), 2000);
+              } }
+            >
+              <DashboardIcon />
+              <Typography variant="caption">DashBoard</Typography>
+            </Icon>
+          </Grid>
+          <Grid
+            item
+            xs={ 3 }
+            md={ 3 }
             sx={ { display: 'flex', justifyContent: 'center' } }
           >
             <Icon

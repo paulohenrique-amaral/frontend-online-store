@@ -14,6 +14,7 @@ import Context from '../../context/Context';
 import { animation } from './CartDrawerCardStyled';
 import ButtonQuantityCartDrawer
   from '../ButtonQuantityCartDrawer/ButtonQuantityCartDrawer';
+import { useFormatCurrency } from '../../hook/useFormatCurrency';
 
 function CartDrawerCard() {
   const [removedCard, setRemovedCard] = useState(false);
@@ -21,6 +22,8 @@ function CartDrawerCard() {
     cart,
     toggleCartDrawer,
     removeItem } = useContext(Context);
+
+  const formatCurrency = useFormatCurrency();
 
   const handleRemoveItem = (productId: string) => {
     setRemovedCard(true);
@@ -70,10 +73,7 @@ function CartDrawerCard() {
                 </Typography>
                 <Box>
                   <Typography level="title-sm">
-                    {product.price.toLocaleString('pt-br', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    })}
+                    {formatCurrency(product.price)}
                   </Typography>
                 </Box>
                 <Box

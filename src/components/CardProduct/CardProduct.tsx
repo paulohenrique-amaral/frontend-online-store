@@ -7,8 +7,8 @@ import { ProductWithQuantityType } from '../../types/apiTypes';
 import Context from '../../context/Context';
 import { ContainerStyled, Item, rotate } from './CardProductStyled';
 import StarRating from '../StarRating/StarRating';
-import AlertAddCart from '../AlertAddCart/AlertAddCart';
 import ButtonQuantityCart from '../ButtonQuantityCart/ButtonQuantityCart';
+import { useFormatCurrency } from '../../hook/useFormatCurrency';
 
 type CardProductProps = {
   id: string;
@@ -22,13 +22,8 @@ type CardProductProps = {
 function CardProduct({ id, product, image, name, price, freight }: CardProductProps) {
   const [animate, setAnimate] = useState(false);
   const [removeCard, setRemoveCard] = useState(false);
-  const {
-    handleAddToCart,
-    removeItem,
-    decrementItemQuantity,
-    incrementItemQuantity,
-    errorEditCart,
-  } = useContext(Context);
+  const { handleAddToCart } = useContext(Context);
+  const formatCurrency = useFormatCurrency();
 
   const location = useLocation();
 
@@ -117,11 +112,8 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
             { display: 'flex', alignItems: 'baseline', gap: '0.3rem' }
           }
           >
-            <Typography>
-              R$
-            </Typography>
             <Typography variant="h4">
-              {price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              {formatCurrency(price)}
             </Typography>
           </Box>
           {!showBtn && (
