@@ -36,7 +36,11 @@ function AlertSnackBar({ open, setOpen, message }: AlertSnackBarProps) {
               { message }
             </Typography>
             <Stack direction="row" spacing={ 1 }>
-              <Button variant="solid" color="primary" onClick={ () => setOpen(false) }>
+              <Button
+                variant="solid"
+                color="primary"
+                onClick={ () => setOpen(false) }
+              >
                 Ok, Entendi!
               </Button>
             </Stack>

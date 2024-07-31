@@ -15,7 +15,7 @@ function useFormAdress() {
   const { personData, setPersonData, setEtapaAtual } = useContext(Context);
 
   const {
-    register, handleSubmit, formState, watch, setValue, clearErrors,
+    register, handleSubmit, formState, watch, setValue, clearErrors, setError,
   } = useForm<FormValuesAdress>({
     criteriaMode: 'all',
     mode: 'all',
@@ -71,11 +71,10 @@ function useFormAdress() {
     const data = await fetch(`https://viacep.com.br/ws/${zipcodeAdress}/json/`);
     const response = await data.json();
 
-    // if (response.erro) {
-    //   setError('CEP inválido');
-    //   return;
-    // }
-
+    if (response.erro) {
+      setError(cepField, { type: 'manual', message: 'CEP inválido' });
+      return;
+    }
     handleSetData(response);
   }, [handleSetData]);
 

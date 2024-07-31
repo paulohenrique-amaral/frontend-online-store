@@ -58,7 +58,10 @@ function CardProduct({ id, product, image, name, price, freight }: CardProductPr
             } }
           >
             <Link to={ `/produto/${id}` }>
-              <img src={ image } alt={ `Product-${name}` } />
+              <img
+                src={ image }
+                alt={ `Product-${name}` }
+              />
             </Link>
           </Box>
         </Grid>

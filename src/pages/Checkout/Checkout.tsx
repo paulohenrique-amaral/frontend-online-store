@@ -69,6 +69,7 @@ function Checkout() {
           </Button>
         </Link>
         <Button
+          disabled={ cart.length === 0 }
           variant="outlined"
           onClick={ () => setOpen(true) }
         >

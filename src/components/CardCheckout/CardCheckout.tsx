@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Context from '../../context/Context';
 import { ProductWithQuantityType } from '../../types/apiTypes';
 import { ContainerStyled, Item } from './CardCheckoutStyled';
+import { useFormatCurrency } from '../../hook/useFormatCurrency';
 
 type CardCheckoutProps = {
   id: string;
@@ -14,12 +15,10 @@ type CardCheckoutProps = {
   price: number;
 };
 
-function CardCheckout({ id, product, image, name, price }: CardCheckoutProps) {
+function CardCheckout({ product, image, name, price }: CardCheckoutProps) {
   const [removeCard, setRemoveCard] = useState(false);
-
-  const {
-    removeItem,
-  } = useContext(Context);
+  const { removeItem } = useContext(Context);
+  const formatCurrency = useFormatCurrency();
   return (
     <ContainerStyled>
       <Item elevation={ 5 } remove={ removeCard }>
@@ -60,7 +59,7 @@ function CardCheckout({ id, product, image, name, price }: CardCheckoutProps) {
               { name }
             </Typography>
             <Typography variant="body1">
-              { `R$ ${price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` }
+              { formatCurrency(price) }
             </Typography>
             <Typography variant="body2">
               { `Quantidade: ${product.quantity}` }

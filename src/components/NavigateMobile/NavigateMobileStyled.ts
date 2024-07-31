@@ -14,7 +14,7 @@ export const ContainerStyled = styled('header')(({ theme }) => ({
   zIndex: 1000,
 }));
 
-export const BottomBar = styled('div')(({ theme }) => ({
+export const BottomBar = styled('div')(() => ({
   backgroundColor: '#eee',
   display: 'flex',
   justifyContent: 'space-between',
@@ -26,7 +26,7 @@ export const BottomBar = styled('div')(({ theme }) => ({
   borderRadius: '20px 20px 0 0',
 }));
 
-export const Icon = styled('button')(({ theme }) => ({
+export const Icon = styled('button')(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

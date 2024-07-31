@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { Box } from '@mui/material';
 import { CategoryType, ProductWithQuantityType } from '../../types/apiTypes';
 import { getProductsFromCategoryAndQuery } from '../../services/api';
@@ -47,6 +47,7 @@ function OffersGrid({ category }: OffersGridProps) {
       </Box>
     ) : (
       <Swiper
+        autoplay={ { delay: 3000, disableOnInteraction: false } }
         slidesPerView={ 1 }
         spaceBetween={ 10 }
         pagination={ {
@@ -70,7 +71,7 @@ function OffersGrid({ category }: OffersGridProps) {
             spaceBetween: 50,
           },
         } }
-        modules={ [Pagination] }
+        modules={ [Pagination, Autoplay] }
         className="swiper-slide"
       >
         {products.length > 0 && (

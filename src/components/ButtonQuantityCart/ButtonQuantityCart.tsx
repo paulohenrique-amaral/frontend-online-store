@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Context from '../../context/Context';
 import { BoxStyled } from './ButtonQuantityCartStyled';

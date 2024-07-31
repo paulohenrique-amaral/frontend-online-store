@@ -40,11 +40,6 @@ function useCart() {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   }, []);
 
-  // const incrementItemQuantity = useCallback((id: string) => {
-  //   setCart((prevCart) => prevCart
-  //     .map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)));
-  // }, []);
-
   const incrementItemQuantity = useCallback((id: string, stock: number) => {
     setErrorEditCart(false);
     setCart((prevCart) => {

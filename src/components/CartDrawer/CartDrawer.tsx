@@ -55,7 +55,7 @@ function CartDrawer() {
           </Box>
           <Box
             sx={ {
-              background: theme.palette.primary.light,
+              background: theme.palette.background.paper,
               position: 'fixed',
               bottom: 0,
               width: '100%',
@@ -89,6 +89,7 @@ function CartDrawer() {
               } }
             >
               <Button
+                disabled={ cart.length === 0 }
                 variant="contained"
                 size="medium"
                 color="info"

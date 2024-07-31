@@ -1,4 +1,4 @@
-import { ProductWithQuantityType } from '../types/apiTypes';
+import { ClientDataType, ProductWithQuantityType } from '../types/apiTypes';
 
 export const scrollToSection = (page: string) => {
   if (page) {
@@ -7,6 +7,31 @@ export const scrollToSection = (page: string) => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   }
+};
+
+export const initialState: ClientDataType = {
+  person: {
+    name: '',
+    cpf: '',
+    date: '',
+    email: '',
+    telefone: '',
+  },
+  adress: {
+    zipCode: '',
+    street: '',
+    number: '',
+    district: '',
+    complement: '',
+    city: '',
+    state: '',
+  },
+  payment: {
+    cardNumber: '',
+    expiryDate: '',
+    cvc: '',
+    cardHolderName: '',
+  },
 };
 
 export const initialProductDetails = {

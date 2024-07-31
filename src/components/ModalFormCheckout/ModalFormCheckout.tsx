@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Context from '../../context/Context';
-// import ModalFormChild from '../ModalFormChild/ModalFormChild';
 import { style } from './ModalFormCheckoutStyled';
 import FormCheckoutPerson from '../FormCheckoutPerson/FormCheckoutPerson';
 import FormCheckoutAdress from '../FormCheckoutAdress/FormCheckoutAdress';
@@ -66,7 +65,6 @@ function ModalFormCheckout({ open, setOpen }: ModalFormCheckoutProps) {
                 </Button>
               </Box>
             </Grid>
-            {/* <ModalFormChild /> */}
           </Box>
         </Modal>
       </div>

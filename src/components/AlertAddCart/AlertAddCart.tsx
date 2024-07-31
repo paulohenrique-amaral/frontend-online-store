@@ -1,8 +1,6 @@
 import { useContext } from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
 import { StyledEngineProvider } from '@mui/material/styles';
 import Context from '../../context/Context';
 
@@ -12,7 +10,7 @@ function AlertAddCart() {
     <StyledEngineProvider injectFirst>
       <Snackbar
         open={ errorEditCart }
-        autoHideDuration={ 6000 }
+        autoHideDuration={ 5000 }
         onClose={ () => setErrorEditCart(false) }
       >
         <Alert

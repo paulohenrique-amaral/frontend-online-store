@@ -24,7 +24,6 @@ function useFormEvaluation(productId: string) {
       const updateProductReviews = [...productReviews];
       updateProductReviews.push({ ...data, id: productId });
       setProductReviews(updateProductReviews);
-      await console.log(data);
       reset();
     } catch (error) {
       console.error('Erro ao submeter o formulário', error);

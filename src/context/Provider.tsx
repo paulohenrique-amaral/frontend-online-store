@@ -5,31 +5,7 @@ import {
 import Context from './Context';
 import useCart from '../hook/useCart';
 import useFetch from '../hook/useFetch';
-
-const initialState: ClientDataType = {
-  person: {
-    name: '',
-    cpf: '',
-    date: '',
-    email: '',
-    telefone: '',
-  },
-  adress: {
-    zipCode: '',
-    street: '',
-    number: '',
-    district: '',
-    complement: '',
-    city: '',
-    state: '',
-  },
-  payment: {
-    cardNumber: '',
-    expiryDate: '',
-    cvc: '',
-    cardHolderName: '',
-  },
-};
+import { initialState } from '../help/helper';
 
 function Provider({ children }: ProviderProps) {
   const [open, setOpen] = useState(false);

@@ -37,7 +37,7 @@ function CategoriesList() {
           CATEGORIAS
         </Typography>
       </Box>
-      <aside aria-label="main mailbox folders">
+      <aside aria-label="categories-products">
         <List>
           {categories?.map((category) => (
             <div key={ category.id }>

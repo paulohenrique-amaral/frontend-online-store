@@ -88,7 +88,12 @@ function OffersCardProducts({ product }: OffersCardProductsProps) {
                 flexWrap: 'wrap',
               } }
               endDecorator={
-                <Chip component="span" size="sm" variant="soft" color="success">
+                <Chip
+                  component="span"
+                  size="sm"
+                  variant="soft"
+                  color="success"
+                >
                   Oferta
                 </Chip>
               }

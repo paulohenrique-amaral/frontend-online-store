@@ -27,7 +27,11 @@ function SearchInput({ onChange, value, name, type }: SearchInputProps) {
         type={ type }
         inputProps={ { 'aria-label': 'Digite sua busca' } }
       />
-      <IconButton type="submit" sx={ { p: '10px' } } aria-label="search">
+      <IconButton
+        type="submit"
+        sx={ { p: '10px' } }
+        aria-label="search"
+      >
         <SearchIcon />
       </IconButton>
     </Paper>

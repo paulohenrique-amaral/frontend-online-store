@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { Box } from '@mui/material';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/joy/IconButton';
 import Textarea from '@mui/joy/Textarea';
 import Context from '../../context/Context';

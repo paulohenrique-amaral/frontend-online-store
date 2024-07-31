@@ -12,14 +12,10 @@ const animation = keyframes`
     -webkit-transform: rotate(2deg);
             transform: rotate(2deg);
   }
-  /* 20%,
-  40%, */
   60% {
     -webkit-transform: rotate(-4deg);
             transform: rotate(-4deg);
   }
-  /* 30%,
-  50%, */
   70% {
     -webkit-transform: rotate(4deg);
             transform: rotate(4deg);
