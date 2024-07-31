@@ -39,16 +39,21 @@ export const schemaFormCreditCard = z.object({
       cardNumberRegex,
       'Por favor, insira um número de cartão válido com 16 dígitos',
     ),
-  expiryDate: z.string().regex(
-    expiryDateRegex,
-    'Por favor, insira uma data de validade no formato MM/AA ou MM/AAAA',
-  ),
-  cvc: z.string().length(3, 'Por favor, insira um código válido com 3 dígitos')
-    .regex(cvcRegex, 'Por favor, insira um código válido com 3 dígitos numéricos'),
+  expiryDate: z.string()
+    .regex(
+      expiryDateRegex,
+      'Por favor, insira uma data de validade no formato MM/AA ou MM/AAAA',
+    ),
+  cvc: z.string()
+    .length(3, 'Por favor, insira um código válido com 3 dígitos')
+    .regex(
+      cvcRegex,
+      'Por favor, insira um código válido com 3 dígitos numéricos',
+    ),
   cardHolderName: z.string()
     .regex(
       cardHolderNameRegex,
-      'Por favor, insira um nome válido contendo apenas letras',
+      'Por favor, insira o nome do titular do cartão',
     ),
 });
 export type FormValuesCreditCard = z.infer<typeof schemaFormCreditCard>;
