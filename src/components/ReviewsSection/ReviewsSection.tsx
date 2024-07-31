@@ -21,9 +21,9 @@ function ReviewsSection() {
       <Typography variant="h6">
         Opiniões sobre o produto
       </Typography>
-      { reviews.map((review) => (
+      { reviews.map((review, index) => (
         <Box
-          key={ review.email }
+          key={ `${review.email}${index}` }
           sx={ {
             display: 'flex',
             flexDirection: 'column',
