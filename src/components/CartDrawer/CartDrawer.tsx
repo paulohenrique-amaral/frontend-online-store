@@ -1,9 +1,12 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import { Typography, Box } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import IconButton from '@mui/material/IconButton';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Context from '../../context/Context';
 import CartDrawerCard from '../CartDrawerCard/CartDrawerCard';
@@ -12,6 +15,7 @@ import { handleCalculateTotalCart } from '../../help/helper';
 
 function CartDrawer() {
   const { cartDrawer, toggleCartDrawer, cart } = useContext(Context);
+  const navigate = useNavigate();
 
   return (
     <StyledEngineProvider injectFirst>
@@ -62,7 +66,7 @@ function CartDrawer() {
               elevation={ 2 }
               sx={ {
                 width: 320,
-                margin: '1rem .5rem 2rem .5rem',
+                margin: '1rem .5rem .2rem .5rem',
               } }
             >
               <Box>
@@ -78,6 +82,25 @@ function CartDrawer() {
                 </Typography>
               </Box>
             </Paper>
+            <Box
+              sx={ {
+                width: 320,
+                margin: '1rem .5rem .2rem .5rem',
+              } }
+            >
+              <Button
+                variant="contained"
+                size="medium"
+                color="info"
+                endIcon={ <ArrowForwardIosIcon /> }
+                onClick={ () => {
+                  toggleCartDrawer(false);
+                  navigate('/checkout');
+                } }
+              >
+                Checkout
+              </Button>
+            </Box>
           </Box>
         </Drawer>
       </div>
