@@ -4,10 +4,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CheckoutAnimation from '../CheckoutAnimation/CheckoutAnimation';
 import FormCreditCard from '../FormCreditCard/FormCreditCard';
 import BoletoComponent from '../BoletoComponent/BoletoComponent';
+import theme from '../../themes/ligth';
 
 function FormCheckoutPayment() {
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -20,10 +21,17 @@ function FormCheckoutPayment() {
     <FormControl>
       <FormLabel
         id="payment-buttons"
-        sx={ { color: 'black', width: '100%' } }
+        sx={ {
+          color: theme.palette.text.primary,
+          width: '100%',
+          marginBottom: '20px',
+        } }
       >
         Formas de pagamento
       </FormLabel>
+      <Typography>
+        Escolha sua forma de pagamento
+      </Typography>
       <RadioGroup
         row
         aria-labelledby="payment-buttons"
@@ -33,12 +41,20 @@ function FormCheckoutPayment() {
       >
         <FormControlLabel
           value="ticket"
-          control={ <Radio sx={ { color: 'black' } } /> }
+          control={ <Radio
+            sx={ {
+              color: theme.palette.text.primary,
+            } }
+          /> }
           label="Boleto"
         />
         <FormControlLabel
           value="creditCard"
-          control={ <Radio sx={ { color: 'black' } } /> }
+          control={ <Radio
+            sx={ {
+              color: theme.palette.text.primary,
+            } }
+          /> }
           label="Cartão de Crédito"
         />
       </RadioGroup>
