@@ -1,11 +1,9 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Typography, TextField } from '@mui/material';
-// import Modal from '@mui/material/Modal';
+import { Typography, TextField, Box } from '@mui/material';
 import Button from '@mui/material/Button';
-// import ModalFormChild from '../ModalFormChild/ModalFormChild';
 import { FormStyled, CssTextField } from './FormCheckoutAdressStyled';
 import useFormAdress from '../../hook/useFormAdress';
+import { TextMaskCEP } from './customInputs/TextMaskCEP';
 
 function FormCheckoutAdress() {
   const [isFocused, setIsFocused] = useState(false);
@@ -24,8 +22,9 @@ function FormCheckoutAdress() {
   } = useFormAdress();
 
   useEffect(() => {
-    if (zipcode.length === 8) {
-      handleFetchAdress(zipcode);
+    const cleanedZipcode = zipcode.replace(/\D/g, '');
+    if (cleanedZipcode.length === 8) {
+      handleFetchAdress(cleanedZipcode);
     }
   }, [handleFetchAdress, zipcode]);
 
@@ -45,6 +44,9 @@ function FormCheckoutAdress() {
         sx={ { ...CssTextField } }
         error={ !!errors.adress?.zipCode }
         helperText={ errors.adress?.zipCode?.message }
+        InputProps={ {
+          inputComponent: TextMaskCEP as any,
+        } }
       />
       <TextField
         id="street"
@@ -94,36 +96,43 @@ function FormCheckoutAdress() {
         label="Complemento"
         sx={ { ...CssTextField } }
       />
-      <TextField
-        id="city"
-        { ...register('adress.city') }
-        InputLabelProps={ {
-          shrink: !!localidade || isFocused,
+      <Box
+        sx={ {
+          display: 'flex',
+          justifyContent: 'space-between',
         } }
-        type="text"
-        placeholder="Cidade"
-        label="Cidade"
-        sx={ { ...CssTextField } }
-        error={ !!errors.adress?.city }
-        helperText={ errors.adress?.city?.message }
-        onFocus={ () => setIsFocused(true) }
-        onBlur={ () => setIsFocused(false) }
-      />
-      <TextField
-        id="state"
-        { ...register('adress.state') }
-        InputLabelProps={ {
-          shrink: !!uf || isFocused,
-        } }
-        type="text"
-        placeholder="Estado"
-        label="Estado"
-        sx={ { ...CssTextField } }
-        error={ !!errors.adress?.state }
-        helperText={ errors.adress?.state?.message }
-        onFocus={ () => setIsFocused(true) }
-        onBlur={ () => setIsFocused(false) }
-      />
+      >
+        <TextField
+          id="city"
+          { ...register('adress.city') }
+          InputLabelProps={ {
+            shrink: !!localidade || isFocused,
+          } }
+          type="text"
+          placeholder="Cidade"
+          label="Cidade"
+          sx={ { ...CssTextField, width: '50%' } }
+          error={ !!errors.adress?.city }
+          helperText={ errors.adress?.city?.message }
+          onFocus={ () => setIsFocused(true) }
+          onBlur={ () => setIsFocused(false) }
+        />
+        <TextField
+          id="state"
+          { ...register('adress.state') }
+          InputLabelProps={ {
+            shrink: !!uf || isFocused,
+          } }
+          type="text"
+          placeholder="Estado"
+          label="Estado"
+          sx={ { ...CssTextField, width: '50%' } }
+          error={ !!errors.adress?.state }
+          helperText={ errors.adress?.state?.message }
+          onFocus={ () => setIsFocused(true) }
+          onBlur={ () => setIsFocused(false) }
+        />
+      </Box>
       <Button type="submit">Avançar</Button>
     </FormStyled>
   );

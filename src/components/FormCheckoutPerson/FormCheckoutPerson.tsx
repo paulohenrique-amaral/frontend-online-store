@@ -2,6 +2,10 @@ import { Typography, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { FormStyled, CssTextField } from './FormCheckoutPersonStyled';
 import useFormPerson from '../../hook/useFormPerson';
+import { TextMaskName } from './customInputs/TextMaskName';
+import { TextMaskCPF } from './customInputs/TextMaskCPF';
+import { TextMaskDate } from './customInputs/TextMaskDate';
+import { TextMaskPhone } from './customInputs/TextMaskPhone';
 
 function FormCheckoutPerson() {
   const { register, handleSubmit, errors, handleSubmitForm } = useFormPerson();
@@ -22,6 +26,9 @@ function FormCheckoutPerson() {
         sx={ { ...CssTextField } }
         error={ !!errors.person?.name }
         helperText={ errors.person?.name?.message }
+        InputProps={ {
+          inputComponent: TextMaskName as any,
+        } }
       />
       <TextField
         id="cpf"
@@ -32,6 +39,9 @@ function FormCheckoutPerson() {
         sx={ { ...CssTextField } }
         error={ !!errors.person?.cpf }
         helperText={ errors.person?.cpf?.message }
+        InputProps={ {
+          inputComponent: TextMaskCPF as any,
+        } }
       />
       <TextField
         id="date"
@@ -42,6 +52,9 @@ function FormCheckoutPerson() {
         sx={ { ...CssTextField } }
         error={ !!errors.person?.date }
         helperText={ errors.person?.date?.message }
+        InputProps={ {
+          inputComponent: TextMaskDate as any,
+        } }
       />
       <TextField
         id="email"
@@ -62,6 +75,9 @@ function FormCheckoutPerson() {
         sx={ { ...CssTextField } }
         error={ !!errors.person?.telefone }
         helperText={ errors.person?.telefone?.message }
+        InputProps={ {
+          inputComponent: TextMaskPhone as any,
+        } }
       />
       <Button type="submit">Próximo</Button>
     </FormStyled>

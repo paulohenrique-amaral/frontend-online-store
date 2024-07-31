@@ -15,7 +15,7 @@ function useFormAdress() {
   const { personData, setPersonData, setEtapaAtual } = useContext(Context);
 
   const {
-    register, handleSubmit, formState, watch, setValue,
+    register, handleSubmit, formState, watch, setValue, clearErrors,
   } = useForm<FormValuesAdress>({
     criteriaMode: 'all',
     mode: 'all',
@@ -64,6 +64,7 @@ function useFormAdress() {
     setValue(bairroField, data.bairro);
     setValue(ufField, data.localidade);
     setValue(localidadeField, data.uf);
+    clearErrors([logradouroField, bairroField, ufField, localidadeField]);
   }, [setValue]);
 
   const handleFetchAdress = useCallback(async (zipcodeAdress: string) => {

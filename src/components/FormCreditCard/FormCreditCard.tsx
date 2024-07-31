@@ -12,6 +12,10 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { StyledEngineProvider, CssVarsProvider } from '@mui/joy/styles';
 import useFormCreditCard from '../../hook/useFormCreditCard';
+import { TextMaskCardNumber } from './customInputs/TextMaskCardNumber';
+import { TextMaskDateExpired } from './customInputs/TextMaskDateExpired';
+import { TextMaskCVV } from './customInputs/TextMaskCVV';
+import { TextMaskHolderName } from './customInputs/TextMaskHolderName';
 
 function FormCreditCard() {
   const { control, handleSubmit, errors, onSubmit } = useFormCreditCard();
@@ -51,6 +55,7 @@ function FormCreditCard() {
                       { ...field }
                       endDecorator={ <CreditCardIcon /> }
                       error={ !!errors.cardNumber }
+                      slotProps={ { input: { component: TextMaskCardNumber } } }
                     />
                   ) }
                 />
@@ -65,6 +70,7 @@ function FormCreditCard() {
                       { ...field }
                       endDecorator={ <CreditCardIcon /> }
                       error={ !!errors.expiryDate }
+                      slotProps={ { input: { component: TextMaskDateExpired } } }
                     />
                   ) }
                 />
@@ -79,6 +85,7 @@ function FormCreditCard() {
                       { ...field }
                       endDecorator={ <InfoOutlined /> }
                       error={ !!errors.cvc }
+                      slotProps={ { input: { component: TextMaskCVV } } }
                     />
                   ) }
                 />
@@ -93,6 +100,7 @@ function FormCreditCard() {
                       { ...field }
                       placeholder="Insira o nome do titular do cartão"
                       error={ !!errors.cardHolderName }
+                      slotProps={ { input: { component: TextMaskHolderName } } }
                     />
                   ) }
                 />
