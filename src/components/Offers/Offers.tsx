@@ -14,7 +14,7 @@ function Offers() {
     const fetchAndSetCategories = async () => {
       const categories = await getCategories();
       const shuffledCategories = categories.sort(() => Math.random() - 0.5);
-      const selectedCategories = shuffledCategories.slice(0, 5);
+      const selectedCategories = shuffledCategories.slice(0, 4);
       setRandomCategories(selectedCategories);
     };
     fetchAndSetCategories();
@@ -41,7 +41,7 @@ function Offers() {
             Ofertas do dia
           </Typography>
         </Grid>
-        {!loading ? (
+        {randomCategories.length > 0 ? (
           randomCategories.map((category, index) => (
             <Grid
               key={ index }
